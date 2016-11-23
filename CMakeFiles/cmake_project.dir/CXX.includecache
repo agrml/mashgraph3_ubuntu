@@ -57,8 +57,12 @@ iostream
 -
 vector
 -
+SOIL.h
+-
 Utility.h
 /Data/Dropbox/Study/University/Машграф/projects/mashgraph3/source/Utility.h
+
+SOIL/src/SOIL.h
 
 Utility/include/GL.h
 GL/glew.h

@@ -1,11 +1,13 @@
 #include <iostream>
 #include <vector>
+#include <SOIL.h>
+#include <GL/Texture.h>
 
 #include "Utility.h"
 
 using namespace std;
 
-const uint GRASS_INSTANCES = 16; // Количество травинок
+const uint GRASS_INSTANCES = 10; // Количество травинок
 
 GL::Camera camera;
 // Мы предоставляем Вам реализацию камеры. В OpenGL камера - это просто 2 матрицы.
@@ -19,6 +21,8 @@ GLuint grassPointsCount; // Количество вершин у модели т
 GLuint grassShader;      // Шейдер, рисующий траву
 GLuint grassVAO;         // VAO для травы (что такое VAO почитайте в доках)
 GLuint grassVariance;    // Буфер для смещения координат травинок
+GLuint groundTexture;
+
 vector<VM::vec4> grassVarianceData(GRASS_INSTANCES); // Вектор со смещениями для координат травинок
 
 GLuint groundShader; // Шейдер для земли
@@ -50,7 +54,11 @@ void DrawGround() {
     CHECK_GL_ERRORS
 
     // Рисуем землю: 2 треугольника (6 вершин)
+    // note: befor this moment we haven't instruct OpenGL how to interpeate vertexes.
     glDrawArrays(GL_TRIANGLES, 0, 6);
+    CHECK_GL_ERRORS
+
+    GL::bindTexture(groundShader, "textureCoordFragmentShader", groundTexture);
     CHECK_GL_ERRORS
 
     // Отсоединяем VAO
@@ -91,6 +99,13 @@ void DrawGrass() {
     CHECK_GL_ERRORS
     glBindVertexArray(grassVAO);
     CHECK_GL_ERRORS
+
+//    GLint vertexColorLocation = glGetUniformLocation(grassShader, "grassColor");
+//    glUniform3f(vertexColorLocation,
+//                static_cast<float>(rand()) / RAND_MAX,
+//                static_cast<float>(rand()) / RAND_MAX,
+//                static_cast<float>(rand()) / RAND_MAX);
+
     // Обновляем смещения для травы
     UpdateGrassVariance();
     // Отрисовка травинок в количестве GRASS_INSTANCES
@@ -205,7 +220,9 @@ void InitializeGLUT(int argc, char **argv) {
 vector<VM::vec2> GenerateGrassPositions() {
     vector<VM::vec2> grassPositions(GRASS_INSTANCES);
     for (uint i = 0; i < GRASS_INSTANCES; ++i) {
-        grassPositions[i] = VM::vec2((i % 4) / 4.0, (i / 4) / 4.0) + VM::vec2(1, 1) / 8;
+//        grassPositions[i] = VM::vec2((i % 4) / 4.0, (i / 4) / 4.0) + VM::vec2(1, 1) / 8;
+        grassPositions[i] = VM::vec2(static_cast<float>(rand()) / RAND_MAX,
+                                     static_cast<float>(rand()) / RAND_MAX) /*+ VM::vec2(1, 1) / 8*/;
     }
     return grassPositions;
 }
@@ -213,9 +230,9 @@ vector<VM::vec2> GenerateGrassPositions() {
 // Здесь вам нужно будет генерировать меш
 vector<VM::vec4> GenMesh(uint n) {
     return {
-        VM::vec4(0, 0, 0, 1),
-        VM::vec4(1, 0, 0, 1),
-        VM::vec4(0.5, 1, 0, 1),
+            VM::vec4(0, 0, 0, 1),
+            VM::vec4(1, 0, 0, 1),
+            VM::vec4(0.5, 1, 0, 1),
     };
 }
 
@@ -241,7 +258,8 @@ void CreateGrass() {
     */
     grassShader = GL::CompileShaderProgram("grass");
 
-    // Здесь создаём буфер
+//////////////////////////////////////////////////////////////
+    // Здесь создаём буфер (VBO)
     GLuint pointsBuffer;
     // Это генерация одного буфера (в pointsBuffer хранится идентификатор буфера)
     glGenBuffers(1, &pointsBuffer);
@@ -250,7 +268,10 @@ void CreateGrass() {
     glBindBuffer(GL_ARRAY_BUFFER, pointsBuffer);
     CHECK_GL_ERRORS
     // Заполняем буфер данными из вектора
-    glBufferData(GL_ARRAY_BUFFER, sizeof(VM::vec4) * grassPoints.size(), grassPoints.data(), GL_STATIC_DRAW);
+    glBufferData(GL_ARRAY_BUFFER,
+                 sizeof(VM::vec4) * grassPoints.size(),
+                 grassPoints.data(),
+                 GL_STATIC_DRAW);
     CHECK_GL_ERRORS
 
     // Создание VAO
@@ -264,12 +285,20 @@ void CreateGrass() {
     // Получение локации параметра 'point' в шейдере
     GLuint pointsLocation = glGetAttribLocation(grassShader, "point");
     CHECK_GL_ERRORS
+    // Устанавливаем параметры для получения данных из массива атрибутов (по 4 значение типа float на одну вершину)
+    // how do C binary data must be interpret in shader.
+    // Here we describe layout in one portion to be sent [GPU RAM -> shader program] to the shader's one call. But we can send [RAM -> GPU RAM] an array of portions per one sending.
+    glVertexAttribPointer(pointsLocation, // offset to start of corresponding GLSL's variable in `in` section
+                          4, // quantity of attributes per vertex
+                          GL_FLOAT, // how to interpret bytes
+                          GL_FALSE, // do not normalize
+                          0, // size of one portion; 0 -- auto
+                          0); // offset of data
+    CHECK_GL_ERRORS
     // Подключаем массив атрибутов к данной локации
     glEnableVertexAttribArray(pointsLocation);
     CHECK_GL_ERRORS
-    // Устанавливаем параметры для получения данных из массива (по 4 значение типа float на одну вершину)
-    glVertexAttribPointer(pointsLocation, 4, GL_FLOAT, GL_FALSE, 0, 0);
-    CHECK_GL_ERRORS
+///////////////////////////////////////////////////////////////
 
     // Создаём буфер для позиций травинок
     GLuint positionBuffer;
@@ -278,6 +307,7 @@ void CreateGrass() {
     // Здесь мы привязываем новый буфер, так что дальше вся работа будет с ним до следующего вызова glBindBuffer
     glBindBuffer(GL_ARRAY_BUFFER, positionBuffer);
     CHECK_GL_ERRORS
+    // binary send data to current buffer [RAM -> RAM]
     glBufferData(GL_ARRAY_BUFFER, sizeof(VM::vec2) * grassPositions.size(), grassPositions.data(), GL_STATIC_DRAW);
     CHECK_GL_ERRORS
 
@@ -362,6 +392,61 @@ void CreateGround() {
     CHECK_GL_ERRORS
     glVertexAttribPointer(index, 4, GL_FLOAT, GL_FALSE, 0, 0);
     CHECK_GL_ERRORS
+
+/////////////////////////////////////////////////////////////
+    glGenTextures(1, &groundTexture);
+    glBindTexture(GL_TEXTURE_2D, groundTexture);
+    // Set the groundTexture wrapping/filtering options (on the currently bound groundTexture object) ...
+
+    // Load and generate the groundTexture
+    int width, height;
+    unsigned char *image = SOIL_load_image("../Texture/ground.jpg", &width, &height, 0, SOIL_LOAD_RGB);
+    glTexImage2D(GL_TEXTURE_2D, 0, GL_RGB, width, height, 0, GL_RGB, GL_UNSIGNED_BYTE, image);
+    glGenerateMipmap(GL_TEXTURE_2D);
+
+    SOIL_free_image_data(image);
+    glBindTexture(GL_TEXTURE_2D, 0);
+
+    // Здесь создаём буфер (VBO)
+    GLuint textureBuffer;
+    // Это генерация одного буфера (в pointsBuffer хранится идентификатор буфера)
+    glGenBuffers(1, &textureBuffer);
+    CHECK_GL_ERRORS
+    // Привязываем сгенерированный буфер
+    glBindBuffer(GL_ARRAY_BUFFER, textureBuffer);
+    CHECK_GL_ERRORS
+    vector<VM::vec2> texturePoints = {
+        VM::vec2(0, 0),
+        VM::vec2(1, 0),
+        VM::vec2(1, 1),
+        VM::vec2(0, 0),
+        VM::vec2(1, 1),
+        VM::vec2(0, 1)
+    };
+    // Заполняем буфер данными из вектора
+    glBufferData(GL_ARRAY_BUFFER,
+                 sizeof(VM::vec2) * texturePoints.size(),
+                 texturePoints.data(),
+                 GL_STATIC_DRAW);
+    CHECK_GL_ERRORS
+
+    // Получение локации параметра 'point' в шейдере
+    GLuint textureCoordsLocation = glGetAttribLocation(groundShader, "textureCoordVertexShader");
+    CHECK_GL_ERRORS
+    // Устанавливаем параметры для получения данных из массива атрибутов (по 4 значение типа float на одну вершину)
+    // how do C binary data must be interpret in shader.
+    // Here we describe layout in one portion to be sent [GPU RAM -> shader program] to the shader's one call. But we can send [RAM -> GPU RAM] an array of portions per one sending.
+    glVertexAttribPointer(textureCoordsLocation, // offset to start of corresponding GLSL's variable in `in` section
+                          2, // quantity of attributes per vertex
+                          GL_FLOAT, // how to interpret bytes
+                          GL_FALSE, // do not normalize
+                          0, // size of one portion; 0 -- auto
+                          0); // offset of data
+    CHECK_GL_ERRORS
+    // Подключаем массив атрибутов к данной локации
+    glEnableVertexAttribArray(textureCoordsLocation);
+    CHECK_GL_ERRORS
+////////////////////////////////////////////////////////////////////
 
     glBindVertexArray(0);
     CHECK_GL_ERRORS

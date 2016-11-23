@@ -26,8 +26,9 @@ add_library(SOIL STATIC ${CMAKE_CURRENT_SOURCE_DIR}/SOIL/src
         ${CMAKE_CURRENT_SOURCE_DIR}/SOIL/src/image_helper.c
         ${CMAKE_CURRENT_SOURCE_DIR}/SOIL/src/SOIL.c
         ${CMAKE_CURRENT_SOURCE_DIR}/SOIL/src/stbi_DDS_aug.h
-        ${CMAKE_CURRENT_SOURCE_DIR}/SOIL/src/original/stb_image-1.09.c
-        ${CMAKE_CURRENT_SOURCE_DIR}/SOIL/src/original/stb_image-1.16.c)
+#        ${CMAKE_CURRENT_SOURCE_DIR}/SOIL/src/original/stb_image-1.09.c
+#        ${CMAKE_CURRENT_SOURCE_DIR}/SOIL/src/original/stb_image-1.16.c
+        )
 
 add_executable(cmake_project
         ${CMAKE_CURRENT_SOURCE_DIR}/Utility/src/Camera.cpp

@@ -49,6 +49,7 @@ CMakeFiles/cmake_project.dir/Utility/src/vec4.cpp.o: Utility/include/VM/vec3.h
 CMakeFiles/cmake_project.dir/Utility/src/vec4.cpp.o: Utility/include/VM/vec4.h
 
 CMakeFiles/cmake_project.dir/source/main.cpp.o: source/main.cpp
+CMakeFiles/cmake_project.dir/source/main.cpp.o: SOIL/src/SOIL.h
 CMakeFiles/cmake_project.dir/source/main.cpp.o: Utility/include/GL.h
 CMakeFiles/cmake_project.dir/source/main.cpp.o: Utility/include/GL/Camera.h
 CMakeFiles/cmake_project.dir/source/main.cpp.o: Utility/include/GL/ShaderProgram.h

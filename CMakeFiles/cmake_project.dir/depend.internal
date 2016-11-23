@@ -50,6 +50,7 @@ CMakeFiles/cmake_project.dir/Utility/src/vec4.cpp.o
  Utility/include/VM/vec4.h
 CMakeFiles/cmake_project.dir/source/main.cpp.o
  /Data/Dropbox/Study/University/Машграф/projects/mashgraph3/source/main.cpp
+ SOIL/src/SOIL.h
  Utility/include/GL.h
  Utility/include/GL/Camera.h
  Utility/include/GL/ShaderProgram.h
