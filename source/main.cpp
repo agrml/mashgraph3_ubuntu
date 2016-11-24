@@ -220,9 +220,8 @@ void InitializeGLUT(int argc, char **argv) {
 vector<VM::vec2> GenerateGrassPositions() {
     vector<VM::vec2> grassPositions(GRASS_INSTANCES);
     for (uint i = 0; i < GRASS_INSTANCES; ++i) {
-//        grassPositions[i] = VM::vec2((i % 4) / 4.0, (i / 4) / 4.0) + VM::vec2(1, 1) / 8;
         grassPositions[i] = VM::vec2(static_cast<float>(rand()) / RAND_MAX,
-                                     static_cast<float>(rand()) / RAND_MAX) /*+ VM::vec2(1, 1) / 8*/;
+                                     static_cast<float>(rand()) / RAND_MAX);
     }
     return grassPositions;
 }
@@ -337,6 +336,39 @@ void CreateGrass() {
     CHECK_GL_ERRORS
     glVertexAttribDivisor(varianceLocation, 1);
     CHECK_GL_ERRORS
+
+    // rotate
+    GLfloat fi = static_cast<double>(rand()) / RAND_MAX * M_PI;
+    GLuint rotationBuffer;
+    glGenBuffers(1, &rotationBuffer);
+    CHECK_GL_ERRORS
+    // Привязываем сгенерированный буфер
+    glBindBuffer(GL_ARRAY_BUFFER, rotationBuffer);
+    CHECK_GL_ERRORS
+    // Заполняем буфер данными из вектора
+    glBufferData(GL_ARRAY_BUFFER,
+                 sizeof(GLfloat),
+                 &fi,
+                 GL_STATIC_DRAW);
+    CHECK_GL_ERRORS
+
+    // Получение локации параметра 'point' в шейдере
+    GLuint fiLocation = glGetAttribLocation(grassShader, "fi");
+    CHECK_GL_ERRORS
+    // Устанавливаем параметры для получения данных из массива атрибутов (по 4 значение типа float на одну вершину)
+    // how C binary data must be interpret in shader.
+    // Here we describe layout in one portion to be sent [GPU RAM -> shader program] to the shader's one call. But we can send [RAM -> GPU RAM] an array of portions per one sending.
+    glVertexAttribPointer(fiLocation, // offset to start of corresponding GLSL's variable in `in` section
+                          1, // quantity of attributes per vertex
+                          GL_FLOAT, // how to interpret bytes
+                          GL_FALSE, // do not normalize
+                          0, // size of one portion; 0 -- auto
+                          0); // offset of data
+    CHECK_GL_ERRORS
+    // Подключаем массив атрибутов к данной локации
+    glEnableVertexAttribArray(fiLocation);
+    CHECK_GL_ERRORS
+
 
     // Отвязываем VAO
     glBindVertexArray(0);

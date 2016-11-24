@@ -3,8 +3,9 @@
 // order of `in`'s may vary if we use `glGetAttribLocation` in C++.
 in vec4 point;
 in vec2 position;
-in vec4 variance;
 // смещение
+in vec4 variance;
+in float fi;
 
 uniform mat4 camera;
 
@@ -19,7 +20,15 @@ void main() {
     positionMatrix[3][0] = position.x;
     positionMatrix[3][2] = position.y;
 
-	gl_Position = camera * (positionMatrix * scaleMatrix * point + variance - variance);
+    mat4 rotationMatrix = mat4(0);
+    rotationMatrix[0][0] = cos(fi);
+    rotationMatrix[0][1] = sin(fi);
+    rotationMatrix[1][1] = 1;
+    rotationMatrix[2][0] = -sin(fi);
+    rotationMatrix[2][2] = cos(fi);
+    rotationMatrix[3][3] = 1;
+
+	gl_Position = camera * (rotationMatrix * positionMatrix * scaleMatrix * point      + variance - variance);
 	// + variance * point.y
 
 	// object in -1..1 -> scale and rotate cube [cos cos sin -sin -- rotation matrix] -> locate cube in map
