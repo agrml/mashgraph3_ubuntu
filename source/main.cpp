@@ -8,11 +8,11 @@
 #include "Window.h"
 
 
-const uint GRASS_INSTANCES = 10; // Количество травинок
+const uint GRASS_INSTANCES = 10000; // Количество травинок
 
 // Размеры экрана
-uint screenWidth = 800;
-uint screenHeight = 600;
+uint screenWidth = 1366;
+uint screenHeight = 768;
 
 // Мы предоставляем Вам реализацию камеры. В OpenGL камера - это просто 2 матрицы.
 // Модельно-видовая матрица и матрица проекции.

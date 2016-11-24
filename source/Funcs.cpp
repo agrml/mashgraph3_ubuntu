@@ -12,7 +12,7 @@ std::vector<VM::vec4> grassVarianceData(GRASS_INSTANCES); // Вектор со �
 
 void createGrassPoints()
 {
-    constexpr uint LOD = 5;
+    constexpr uint LOD = 50;
     // Создаём меш
     std::vector<VM::vec4> grassPoints = GenMesh(LOD);
     // Сохраняем количество вершин в меше травы
@@ -145,11 +145,11 @@ void createGrassRotations() {};
 
 // Обновление смещения травинок
 void UpdateGrassVariance() {
-
     // Генерация случайных смещений
+    auto t = glutGet(GLUT_ELAPSED_TIME);
     for (uint i = 0; i < GRASS_INSTANCES; ++i) {
-        grassVarianceData[i].x = static_cast<float>(rand()) / RAND_MAX / 100;
-        grassVarianceData[i].z = static_cast<float>(rand()) / RAND_MAX / 100;
+        grassVarianceData[i].x = sin(static_cast<float>(t) / 600) / 100;
+        grassVarianceData[i].z = sin(static_cast<float>(t) / 600) / 100;
     }
 
     // Привязываем буфер, содержащий смещения
@@ -280,3 +280,4 @@ void createGroundTexture()
     glEnableVertexAttribArray(textureCoordsLocation);
     CHECK_GL_ERRORS
 }
+

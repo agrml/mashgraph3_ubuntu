@@ -22,13 +22,13 @@ void main() {
 
 //    mat4 rotationMatrix = mat4(0);
 //    rotationMatrix[0][0] = cos(fi);
-//    rotationMatrix[0][1] = sin(fi);
+//    rotationMatrix[0][2] = sin(fi);
 //    rotationMatrix[1][1] = 1;
 //    rotationMatrix[2][0] = -sin(fi);
 //    rotationMatrix[2][2] = cos(fi);
 //    rotationMatrix[3][3] = 1;
 
-	gl_Position = camera * (positionMatrix * scaleMatrix * point      + variance - variance);
+	gl_Position = camera * (positionMatrix * scaleMatrix * point + variance * point.y * point.y);
 	// + variance * point.y
 
 	// object in -1..1 -> scale and rotate cube [cos cos sin -sin -- rotation matrix] -> locate cube in map
