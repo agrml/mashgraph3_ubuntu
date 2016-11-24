@@ -14,7 +14,11 @@
       <sourceFolder url="file://$MODULE_DIR$/Utility/src/vec3.cpp" isTestSource="false" />
       <sourceFolder url="file://$MODULE_DIR$/Utility/src/mat4.cpp" isTestSource="false" />
       <sourceFolder url="file://$MODULE_DIR$/CMakeLists.txt" isTestSource="false" />
+      <sourceFolder url="file://$MODULE_DIR$/source/Window.cpp" isTestSource="false" />
       <sourceFolder url="file://$MODULE_DIR$/source/main.cpp" isTestSource="false" />
+      <sourceFolder url="file://$MODULE_DIR$/source/Funcs.cpp" isTestSource="false" />
+      <sourceFolder url="file://$MODULE_DIR$/source/Window.h" isTestSource="false" />
+      <sourceFolder url="file://$MODULE_DIR$/source/Funcs.h" isTestSource="false" />
     </content>
     <orderEntry type="sourceFolder" forTests="false" />
     <orderEntry type="module-library">
