@@ -12,7 +12,7 @@ std::vector<VM::vec4> grassVarianceData(GRASS_INSTANCES); // Вектор со �
 
 void createGrassPoints()
 {
-    uint LOD = 1;
+    constexpr uint LOD = 5;
     // Создаём меш
     std::vector<VM::vec4> grassPoints = GenMesh(LOD);
     // Сохраняем количество вершин в меше травы
@@ -173,16 +173,29 @@ std::vector<VM::vec2> GenerateGrassPositions() {
     return grassPositions;
 }
 
-// Здесь вам нужно будет генерировать меш
-std::vector<VM::vec4> GenMesh(uint n) {
-    return {
-            VM::vec4(0, 0, 0, 1),
-            VM::vec4(1, 0, 0, 1),
-            VM::vec4(0.75, 0.5, 0, 1),
-            VM::vec4(0, 0, 0, 1),
-            VM::vec4(0.75, 0.5, 0, 1),
-            VM::vec4(0.5, 1, 0, 1)
-    };
+/**
+ *
+ * @param n Quontity of rectangels. Must be >= 3 and n % 2 == 1.
+ * @return
+ */
+std::vector<VM::vec4> GenMesh(uint n)
+{
+    std::vector<VM::vec4> ans{};
+    uint nRectangles = (n - 1) / 2;
+    double yStep = 1.0 / (nRectangles + 1);
+    double h = 0;
+    for (; h < yStep * nRectangles; h += yStep) {
+        ans.emplace_back(VM::vec4(0, h, 0, 1));
+        ans.emplace_back(VM::vec4(1, h, 0, 1));
+        ans.emplace_back(VM::vec4(0, h + yStep, 0, 1));
+        ans.emplace_back(VM::vec4(1, h, 0, 1));
+        ans.emplace_back(VM::vec4(0, h + yStep, 0, 1));
+        ans.emplace_back(VM::vec4(1, h + yStep, 0, 1));
+    }
+    ans.emplace_back(VM::vec4(0, h, 0, 1));
+    ans.emplace_back(VM::vec4(1, h, 0, 1));
+    ans.emplace_back(VM::vec4(0.5, 1, 0, 1));
+    return ans;
 }
 
 void createGroundPoints()
