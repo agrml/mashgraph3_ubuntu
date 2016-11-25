@@ -4,7 +4,7 @@
 
 #include "Utility.h"
 
-uint GRASS_INSTANCES = 10; // Количество травинок
+uint GRASS_INSTANCES = 10000; // Количество травинок
 
 // Размеры экрана
 uint screenWidth = 1920;

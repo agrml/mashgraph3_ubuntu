@@ -58,7 +58,7 @@ void createGrassPoints()
 void createGrassPositions()
 {
     // Создаём позиции для травинок
-    std::vector<VM::vec2> grassPositions = GenerateGrassPositions();
+    std::vector<VM::vec4> grassPositions = GenerateGrassPositions();
     // Создаём буфер для позиций травинок
     GLuint positionBuffer;
     glGenBuffers(1, &positionBuffer);
@@ -67,14 +67,14 @@ void createGrassPositions()
     glBindBuffer(GL_ARRAY_BUFFER, positionBuffer);
     CHECK_GL_ERRORS
     // binary send data to current buffer [RAM -> RAM]
-    glBufferData(GL_ARRAY_BUFFER, sizeof(VM::vec2) * grassPositions.size(), grassPositions.data(), GL_STATIC_DRAW);
+    glBufferData(GL_ARRAY_BUFFER, sizeof(VM::vec4) * grassPositions.size(), grassPositions.data(), GL_STATIC_DRAW);
     CHECK_GL_ERRORS
 
-    GLuint positionLocation = glGetAttribLocation(grassShader, "position");
+    GLuint positionLocation = glGetAttribLocation(grassShader, "positions");
     CHECK_GL_ERRORS
     glEnableVertexAttribArray(positionLocation);
     CHECK_GL_ERRORS
-    glVertexAttribPointer(positionLocation, 2, GL_FLOAT, GL_FALSE, 0, 0);
+    glVertexAttribPointer(positionLocation, 4, GL_FLOAT, GL_FALSE, 0, 0);
     CHECK_GL_ERRORS
     // Здесь мы указываем, что нужно брать новое значение из этого буфера для каждого инстанса (для каждой травинки)
     glVertexAttribDivisor(positionLocation, 1);
@@ -142,11 +142,13 @@ void UpdateGrassVariance() {
 }
 
 // Генерация позиций травинок (эту функцию вам придётся переписать)
-std::vector<VM::vec2> GenerateGrassPositions() {
-    std::vector<VM::vec2> grassPositions(GRASS_INSTANCES);
+std::vector<VM::vec4> GenerateGrassPositions() {
+    std::vector<VM::vec4> grassPositions(GRASS_INSTANCES);
     for (uint i = 0; i < GRASS_INSTANCES; ++i) {
-        grassPositions[i] = VM::vec2(static_cast<float>(rand()) / RAND_MAX,
-                                     static_cast<float>(rand()) / RAND_MAX);
+        grassPositions[i] = VM::vec4(static_cast<float>(rand()) / RAND_MAX,  // x
+                                     static_cast<float>(rand()) / RAND_MAX,  // x
+                                     static_cast<float>(rand()) / RAND_MAX * M_PI,  // fi
+                                     static_cast<float>(rand()) / RAND_MAX);  // scale
     }
     return grassPositions;
 }
