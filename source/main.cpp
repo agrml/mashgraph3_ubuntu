@@ -94,7 +94,7 @@ void CreateCamera() {
 // Инициализация окна
 void InitializeGLUT(int argc, char **argv) {
     glutInit(&argc, argv);
-    glutInitDisplayMode(GLUT_RGBA | GLUT_DOUBLE);
+    glutInitDisplayMode(GLUT_RGBA | GLUT_DOUBLE | GLUT_DEPTH);
     glutInitContextVersion(3, 0);
     glutInitWindowPosition(200, 50);
     glutInitWindowSize(screenWidth, screenHeight);
