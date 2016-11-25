@@ -43,7 +43,9 @@ add_executable(cmake_project
         ${CMAKE_CURRENT_SOURCE_DIR}/Utility/src/vec4.cpp
         ${CMAKE_CURRENT_SOURCE_DIR}/source/main.cpp
         ${CMAKE_CURRENT_SOURCE_DIR}/source/Funcs.cpp
-        ${CMAKE_CURRENT_SOURCE_DIR}/source/Window.cpp)
+        ${CMAKE_CURRENT_SOURCE_DIR}/source/Graphics.cpp
+        ${CMAKE_CURRENT_SOURCE_DIR}/source/Globals.cpp
+        )
 
 add_custom_target(make COMMAND $(MAKE) -C ${cmake_project_SOURCE_DIR}
         CLION_EXE_DIR=${PROJECT_BINARY_DIR})

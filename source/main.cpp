@@ -4,149 +4,89 @@
 #include <GL/Texture.h>
 
 #include "Utility.h"
-#include "Funcs.h"
-#include "Window.h"
+#include "Graphics.h"
+#include "Globals.h"
 
 
-const uint GRASS_INSTANCES = 10000; // Количество травинок
-
-// Размеры экрана
-uint screenWidth = 1366;
-uint screenHeight = 768;
-
-// Мы предоставляем Вам реализацию камеры. В OpenGL камера - это просто 2 матрицы.
-// Модельно-видовая матрица и матрица проекции.
-// ###
-// Задача этого класса только в том чтобы обработать ввод с клавиатуры и правильно сформировать эти матрицы.
-// Вы можете просто пользоваться этим классом для расчёта указанных матриц.
-GL::Camera camera;
-
-GLuint grassPointsCount; // Количество вершин у модели травинки
-GLuint grassShader;      // Шейдер, рисующий траву
-GLuint grassVAO;         // VAO для травы (что такое VAO почитайте в доках)
-GLuint grassVariance;    // Буфер для смещения координат травинок
-
-GLuint groundTexture;
-GLuint groundShader; // Шейдер для земли
-GLuint groundVAO; // VAO для земли
-
-
-// Функция, рисующая замлю
-void DrawGround() {
-    // Используем шейдер для земли
-    glUseProgram(groundShader);
-    CHECK_GL_ERRORS
-
-    // Устанавливаем юниформ для шейдера. В данном случае передадим перспективную матрицу камеры
-    // Находим локацию юниформа 'camera' в шейдере
-    GLint cameraLocation = glGetUniformLocation(groundShader, "camera");
-    CHECK_GL_ERRORS
-    // Устанавливаем юниформ (загружаем на GPU матрицу проекции?)
-    glUniformMatrix4fv(cameraLocation, 1, GL_TRUE, camera.getMatrix().data().data());
-    CHECK_GL_ERRORS
-
-    // Подключаем VAO, который содержит буферы, необходимые для отрисовки земли
-    glBindVertexArray(groundVAO);
-    CHECK_GL_ERRORS
-
-    // Рисуем землю: 2 треугольника (6 вершин)
-    // note: befor this moment we haven't instruct OpenGL how to interpeate vertexes.
-    glDrawArrays(GL_TRIANGLES, 0, 6);
-    CHECK_GL_ERRORS
-
-    GL::bindTexture(groundShader, "textureCoordFragmentShader", groundTexture);
-    CHECK_GL_ERRORS
-
-    // Отсоединяем VAO
-    glBindVertexArray(0);
-    CHECK_GL_ERRORS
-    // Отключаем шейдер
-    glUseProgram(0);
-    CHECK_GL_ERRORS
+// Завершение программы
+void FinishProgram() {
+    glutDestroyWindow(glutGetWindow());
 }
 
-// Рисование травы
-void DrawGrass() {
-    // Тут то же самое, что и в рисовании земли
-    glUseProgram(grassShader);
-    CHECK_GL_ERRORS
-    GLint cameraLocation = glGetUniformLocation(grassShader, "camera");
-    CHECK_GL_ERRORS
-    glUniformMatrix4fv(cameraLocation, 1, GL_TRUE, camera.getMatrix().data().data());
-    CHECK_GL_ERRORS
-    glBindVertexArray(grassVAO);
-    CHECK_GL_ERRORS
+// Это для захвата мышки. Вам это не потребуется (это не значит, что нужно удалять эту строку)
+bool captureMouse = true;
 
-//    GLint vertexColorLocation = glGetUniformLocation(grassShader, "grassColor");
-//    glUniform3f(vertexColorLocation,
-//                static_cast<float>(rand()) / RAND_MAX,
-//                static_cast<float>(rand()) / RAND_MAX,
-//                static_cast<float>(rand()) / RAND_MAX);
-
-    // Обновляем смещения для травы
-    UpdateGrassVariance();
-    // Отрисовка травинок в количестве GRASS_INSTANCES
-    glDrawArraysInstanced(GL_TRIANGLES, 0, grassPointsCount, GRASS_INSTANCES);
-    CHECK_GL_ERRORS
-    glBindVertexArray(0);
-    CHECK_GL_ERRORS
-    glUseProgram(0);
-    CHECK_GL_ERRORS
+// Обработка события нажатия клавиши (специальные клавиши обрабатываются в функции SpecialButtons)
+void KeyboardEvents(unsigned char key, int x, int y) {
+    if (key == 27) {
+        FinishProgram();
+    } else if (key == 'w') {
+        camera.goForward();
+    } else if (key == 's') {
+        camera.goBack();
+    } else if (key == 'm') {
+        captureMouse = !captureMouse;
+        if (captureMouse) {
+            glutWarpPointer(screenWidth / 2, screenHeight / 2);
+            glutSetCursor(GLUT_CURSOR_NONE);
+        } else {
+            glutSetCursor(GLUT_CURSOR_RIGHT_ARROW);
+        }
+    }
 }
 
-
-// Создание травы
-void CreateGrass() {
-    /* Компилируем шейдеры
-    Эта функция принимает на вход название шейдера 'shaderName',
-    читает файлы shaders/{shaderName}.vert - вершинный шейдер
-    и shaders/{shaderName}.frag - фрагментный шейдер,
-    компилирует их и линкует.
-    */
-    grassShader = GL::CompileShaderProgram("grass");
-
-    createGrassPoints();
-    createGrassPositions();
-    createGrassVariences();
-    createGrassRotations();
-
-
-    // Отвязываем VAO
-    glBindVertexArray(0);
-    CHECK_GL_ERRORS
-    // Отвязываем буфер
-    glBindBuffer(GL_ARRAY_BUFFER, 0);
-    CHECK_GL_ERRORS
+// Обработка события нажатия специальных клавиш
+void SpecialButtons(int key, int x, int y) {
+    if (key == GLUT_KEY_RIGHT) {
+        camera.rotateY(0.02);
+    } else if (key == GLUT_KEY_LEFT) {
+        camera.rotateY(-0.02);
+    } else if (key == GLUT_KEY_UP) {
+        camera.rotateTop(-0.02);
+    } else if (key == GLUT_KEY_DOWN) {
+        camera.rotateTop(0.02);
+    }
 }
 
-// Создаём замлю
-void CreateGround() {
-    groundShader = GL::CompileShaderProgram("ground");
-
-    glGenVertexArrays(1, &groundVAO);
-    CHECK_GL_ERRORS
-    glBindVertexArray(groundVAO);
-    CHECK_GL_ERRORS
-
-    createGroundPoints();
-    createGroundTexture();
-
-    glBindVertexArray(0);
-    CHECK_GL_ERRORS
-    glBindBuffer(GL_ARRAY_BUFFER, 0);
-    CHECK_GL_ERRORS
+void IdleFunc() {
+    glutPostRedisplay();
 }
 
-// Эта функция вызывается для обновления экрана
-void RenderLayouts() {
-    // Включение буфера глубины
-    glEnable(GL_DEPTH_TEST);
-    // Очистка буфера глубины и цветового буфера
-    glClear(GL_COLOR_BUFFER_BIT | GL_DEPTH_BUFFER_BIT);
-    // Рисуем меши
-    DrawGround();
-    DrawGrass();
-    glutSwapBuffers();
+// Обработка события движения мыши
+void MouseMove(int x, int y) {
+    if (captureMouse) {
+        int centerX = screenWidth / 2,
+            centerY = screenHeight / 2;
+        if (x != centerX || y != centerY) {
+            camera.rotateY((x - centerX) / 1000.0f);
+            camera.rotateTop((y - centerY) / 1000.0f);
+            glutWarpPointer(centerX, centerY);
+        }
+    }
+}
+
+// Обработка нажатия кнопки мыши
+void MouseClick(int button, int state, int x, int y) {
+}
+
+// Событие изменение размера окна
+void windowReshapeFunc(GLint newWidth, GLint newHeight) {
+    glViewport(0, 0, newWidth, newHeight);
+    screenWidth = newWidth;
+    screenHeight = newHeight;
+
+    camera.screenRatio = static_cast<float>(screenWidth) / screenHeight;
+}
+
+// Создаём камеру (Если шаблонная камера вам не нравится, то можете переделать, но я бы не стал)
+void CreateCamera() {
+    camera.angle = 60.0f / 180.0f * M_PI;
+    camera.direction = VM::vec3(0, 0.3, -1);
+    camera.position = VM::vec3(0.5, 0.2, 0);
+    camera.screenRatio = static_cast<float>(screenWidth) / screenHeight;
+    camera.up = VM::vec3(0, 1, 0);
+    camera.zfar = 50.0f;
+    camera.znear = 0.05f;
 }
 
 // Инициализация окна

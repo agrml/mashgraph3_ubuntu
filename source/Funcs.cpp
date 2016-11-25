@@ -7,12 +7,16 @@
 #include <GL/Texture.h>
 
 #include "Funcs.h"
+#include "Globals.h"
 
-std::vector<VM::vec4> grassVarianceData(GRASS_INSTANCES); // Вектор со смещениями для координат травинок
+
+std::vector<VM::vec4> xyzw(GRASS_INSTANCES); // Вектор со смещениями для координат травинок
+std::vector<float> v(GRASS_INSTANCES);
+std::vector<float> a(GRASS_INSTANCES);
 
 void createGrassPoints()
 {
-    constexpr uint LOD = 50;
+    constexpr uint LOD = 23;
     // Создаём меш
     std::vector<VM::vec4> grassPoints = GenMesh(LOD);
     // Сохраняем количество вершин в меше травы
@@ -30,14 +34,6 @@ void createGrassPoints()
                  sizeof(VM::vec4) * grassPoints.size(),
                  grassPoints.data(),
                  GL_STATIC_DRAW);
-    CHECK_GL_ERRORS
-
-    // Создание VAO
-    // Генерация VAO
-    glGenVertexArrays(1, &grassVAO);
-    CHECK_GL_ERRORS
-    // Привязка VAO
-    glBindVertexArray(grassVAO);
     CHECK_GL_ERRORS
 
     // Получение локации параметра 'point' в шейдере
@@ -61,7 +57,6 @@ void createGrassPoints()
 
 void createGrassPositions()
 {
-
     // Создаём позиции для травинок
     std::vector<VM::vec2> grassPositions = GenerateGrassPositions();
     // Создаём буфер для позиций травинок
@@ -90,14 +85,16 @@ void createGrassVariences()
 {
     // Инициализация смещений для травинок
     for (uint i = 0; i < GRASS_INSTANCES; ++i) {
-        grassVarianceData[i] = VM::vec4(0, 0, 0, 0);
+        xyzw[i] = VM::vec4(0, 0, 0, 0);
+        v[i] = 0;
+        a[i] = 0;
     }
     // Создаём буфер для смещения травинок
     glGenBuffers(1, &grassVariance);
     CHECK_GL_ERRORS
     glBindBuffer(GL_ARRAY_BUFFER, grassVariance);
     CHECK_GL_ERRORS
-    glBufferData(GL_ARRAY_BUFFER, sizeof(VM::vec4) * GRASS_INSTANCES, grassVarianceData.data(), GL_STATIC_DRAW);
+    glBufferData(GL_ARRAY_BUFFER, sizeof(VM::vec4) * GRASS_INSTANCES, xyzw.data(), GL_STATIC_DRAW);
     CHECK_GL_ERRORS
 
     GLuint varianceLocation = glGetAttribLocation(grassShader, "variance");
@@ -145,18 +142,32 @@ void createGrassRotations() {};
 
 // Обновление смещения травинок
 void UpdateGrassVariance() {
-    // Генерация случайных смещений
-    auto t = glutGet(GLUT_ELAPSED_TIME);
-    for (uint i = 0; i < GRASS_INSTANCES; ++i) {
-        grassVarianceData[i].x = sin(static_cast<float>(t) / 600) / 100;
-        grassVarianceData[i].z = sin(static_cast<float>(t) / 600) / 100;
-    }
+    constexpr float deltaT = 1.0 / 60;
+    constexpr float k = 10, r = 0.05;
+    static float fWind{2};
 
+
+    constexpr float dec = 0.5;  // затухание
+
+    for (uint i = 0; i < GRASS_INSTANCES; ++i) {
+        a[i] = xyzw[i].x * (-k) + fWind - v[i] * dec;
+        v[i] += a[i] * deltaT;
+
+        xyzw[i].x += v[i] * deltaT + a[i] * sqr(deltaT) / 2;
+
+        auto tmp = sqr(r) - sqr(xyzw[i].x) - sqr(xyzw[i].z);
+        if (tmp < 0) {
+            std::cerr << "tmp < 0" << std::endl;
+        }
+        tmp = std::max(tmp, static_cast<float>(0));
+        xyzw[i].y = sqrt(tmp) - r;
+    }
+    fWind = fWind / 2;
     // Привязываем буфер, содержащий смещения
     glBindBuffer(GL_ARRAY_BUFFER, grassVariance);
     CHECK_GL_ERRORS
     // Загружаем данные в видеопамять
-    glBufferData(GL_ARRAY_BUFFER, sizeof(VM::vec4) * GRASS_INSTANCES, grassVarianceData.data(), GL_STATIC_DRAW);
+    glBufferData(GL_ARRAY_BUFFER, sizeof(VM::vec4) * GRASS_INSTANCES, xyzw.data(), GL_STATIC_DRAW);
     CHECK_GL_ERRORS
     // Отвязываем буфер
     glBindBuffer(GL_ARRAY_BUFFER, 0);
