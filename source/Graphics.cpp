@@ -101,7 +101,6 @@ void CreateGrass() {
     createGrassPoints();
     createGrassPositions();
     createGrassVariences();
-    createGrassRotations();
     createGrassTexture();
 
     // Отвязываем VAO

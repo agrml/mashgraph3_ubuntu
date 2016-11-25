@@ -9,7 +9,6 @@
 void createGrassPoints();
 void createGrassPositions();
 void createGrassVariences();
-void createGrassRotations();
 void createGrassTexture();
 
 std::vector<VM::vec4> GenMesh(uint n);
