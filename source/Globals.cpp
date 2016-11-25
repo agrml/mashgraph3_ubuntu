@@ -4,7 +4,7 @@
 
 #include "Utility.h"
 
-uint GRASS_INSTANCES = 10000; // Количество травинок
+uint GRASS_INSTANCES = 1000; // Количество травинок
 
 // Размеры экрана
 uint screenWidth = 1920;
@@ -26,3 +26,5 @@ GLuint grassTexture;
 GLuint groundTexture;
 GLuint groundShader; // Шейдер для земли
 GLuint groundVAO; // VAO для земли
+
+float fWind = 1;

@@ -20,3 +20,5 @@ extern GLuint groundTexture;
 extern GLuint groundShader;
 extern GLuint groundVAO;
 
+extern float fWind;
+

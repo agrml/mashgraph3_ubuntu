@@ -111,13 +111,10 @@ void createGrassVariences()
 void UpdateGrassVariance() {
     constexpr float deltaT = 1.0 / 60;
     constexpr float k = 10, r = 0.05;
-    static float fWind{2};
-
-
-    constexpr float dec = 0.5;  // затухание
+    constexpr float damping = 0.1;  // затухание
 
     for (uint i = 0; i < GRASS_INSTANCES; ++i) {
-        a[i] = xyzw[i].x * (-k) + fWind - v[i] * dec;
+        a[i] = xyzw[i].x * (-k) + fWind - v[i] * damping;
         v[i] += a[i] * deltaT;
 
         xyzw[i].x += v[i] * deltaT + a[i] * sqr(deltaT) / 2;
@@ -148,7 +145,7 @@ std::vector<VM::vec4> GenerateGrassPositions() {
         grassPositions[i] = VM::vec4(static_cast<float>(rand()) / RAND_MAX,  // x
                                      static_cast<float>(rand()) / RAND_MAX,  // x
                                      static_cast<float>(rand()) / RAND_MAX * M_PI,  // fi
-                                     static_cast<float>(rand()) / RAND_MAX);  // scale
+                                     0.05 + 0.1 * (static_cast<float>(rand()) / RAND_MAX));  // scale
     }
     return grassPositions;
 }

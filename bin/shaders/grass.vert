@@ -5,7 +5,8 @@ in vec4 point;
 in vec4 positions;
 // смещение
 in vec4 variance;
-//in float fi;
+
+out float randColor;
 
 out vec2 textureCoordFragmentShader;
 
@@ -21,7 +22,7 @@ void main() {
     scaleMatrix[0][0] = 0.001;
     scaleMatrix[1][1] = 0.01;
     scaleMatrix[2][2] = 0.001;
-    scaleMatrix[3][3] = 0.1; // w -- scale factor
+    scaleMatrix[3][3] = scale; // w -- scale factor
 
     mat4 positionMatrix = mat4(1.0);
     positionMatrix[3][0] = position.x;
@@ -42,5 +43,5 @@ void main() {
 	// point -- point in cube; positionMatrix -- locates cube in the map
 
 	textureCoordFragmentShader = vec2(point.y, point.x);
-
+	randColor = (fi + scale + point.x / 2 + point.y / 2) / 4;
 }

@@ -32,6 +32,8 @@ void KeyboardEvents(unsigned char key, int x, int y) {
         } else {
             glutSetCursor(GLUT_CURSOR_RIGHT_ARROW);
         }
+    } else if (key == '+') {
+        fWind += 0.3;
     }
 }
 
