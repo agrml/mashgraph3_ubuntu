@@ -4,8 +4,8 @@ in vec2 textureCoordFragmentShader;
 
 out vec4 outColor;
 
-uniform sampler2D ourTexture;
+uniform sampler2D groundTexture;
 
 void main() {
-    outColor = texture(ourTexture, textureCoordFragmentShader);
+    outColor = texture(groundTexture, textureCoordFragmentShader);
 }

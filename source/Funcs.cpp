@@ -13,6 +13,7 @@
 std::vector<VM::vec4> xyzw(GRASS_INSTANCES); // Вектор со смещениями для координат травинок
 std::vector<float> v(GRASS_INSTANCES);
 std::vector<float> a(GRASS_INSTANCES);
+std::vector<VM::vec2> grassTexturePoints;
 
 void createGrassPoints()
 {
@@ -202,10 +203,21 @@ std::vector<VM::vec4> GenMesh(uint n)
         ans.emplace_back(VM::vec4(1, h, 0, 1));
         ans.emplace_back(VM::vec4(0, h + yStep, 0, 1));
         ans.emplace_back(VM::vec4(1, h + yStep, 0, 1));
+
+        grassTexturePoints.emplace_back(VM::vec2(0, h));
+        grassTexturePoints.emplace_back(VM::vec2(1, h));
+        grassTexturePoints.emplace_back(VM::vec2(0, h + yStep));
+        grassTexturePoints.emplace_back(VM::vec2(1, h));
+        grassTexturePoints.emplace_back(VM::vec2(0, h + yStep));
+        grassTexturePoints.emplace_back(VM::vec2(1, h + yStep));
     }
     ans.emplace_back(VM::vec4(0, h, 0, 1));
     ans.emplace_back(VM::vec4(1, h, 0, 1));
     ans.emplace_back(VM::vec4(0.5, 1, 0, 1));
+
+    grassTexturePoints.emplace_back(VM::vec2(0, h));
+    grassTexturePoints.emplace_back(VM::vec2(1, h));
+    grassTexturePoints.emplace_back(VM::vec2(0.5, 1));
     return ans;
 }
 
@@ -244,7 +256,7 @@ void createGroundTexture()
 
     // Load and generate the groundTexture
     int width, height;
-    unsigned char *image = SOIL_load_image("../Texture/ground.jpg", &width, &height, 0, SOIL_LOAD_RGB);
+    unsigned char *image = SOIL_load_image("../Texture/grass.jpg", &width, &height, 0, SOIL_LOAD_RGB);  // fixme
     glTexImage2D(GL_TEXTURE_2D, 0, GL_RGB, width, height, 0, GL_RGB, GL_UNSIGNED_BYTE, image);
     glGenerateMipmap(GL_TEXTURE_2D);
 
@@ -276,6 +288,55 @@ void createGroundTexture()
 
     // Получение локации параметра 'point' в шейдере
     GLuint textureCoordsLocation = glGetAttribLocation(groundShader, "textureCoordVertexShader");
+    CHECK_GL_ERRORS
+    // Устанавливаем параметры для получения данных из массива атрибутов (по 4 значение типа float на одну вершину)
+    // how do C binary data must be interpret in shader.
+    // Here we describe layout in one portion to be sent [GPU RAM -> shader program] to the shader's one call. But we can send [RAM -> GPU RAM] an array of portions per one sending.
+    glVertexAttribPointer(textureCoordsLocation, // offset to start of corresponding GLSL's variable in `in` section
+                          2, // quantity of attributes per vertex
+                          GL_FLOAT, // how to interpret bytes
+                          GL_FALSE, // do not normalize
+                          0, // size of one portion; 0 -- auto
+                          0); // offset of data
+    CHECK_GL_ERRORS
+    // Подключаем массив атрибутов к данной локации
+    glEnableVertexAttribArray(textureCoordsLocation);
+    CHECK_GL_ERRORS
+}
+
+void createGrassTexture()
+{
+    glGenTextures(1, &grassTexture);
+    glBindTexture(GL_TEXTURE_2D, grassTexture);
+    // Set the grassTexture wrapping/filtering options (on the currently bound grassTexture object) ...
+
+    // Load and generate the grassTexture
+    int width, height;
+    unsigned char *image = SOIL_load_image("../Texture/ground.jpg", &width, &height, 0, SOIL_LOAD_RGB);  // fixme
+    glTexImage2D(GL_TEXTURE_2D, 0, GL_RGB, width, height, 0, GL_RGB, GL_UNSIGNED_BYTE, image);
+    glGenerateMipmap(GL_TEXTURE_2D);
+
+    SOIL_free_image_data(image);
+    glBindTexture(GL_TEXTURE_2D, 0);
+
+    // Здесь создаём буфер (VBO)
+    GLuint textureBuffer;
+    // Это генерация одного буфера (в pointsBuffer хранится идентификатор буфера)
+    glGenBuffers(1, &textureBuffer);
+    CHECK_GL_ERRORS
+    // Привязываем сгенерированный буфер
+    glBindBuffer(GL_ARRAY_BUFFER, textureBuffer);
+    CHECK_GL_ERRORS
+
+    // Заполняем буфер данными из вектора
+    glBufferData(GL_ARRAY_BUFFER,
+                 sizeof(VM::vec2) * grassTexturePoints.size(),
+                 grassTexturePoints.data(),
+                 GL_STATIC_DRAW);
+    CHECK_GL_ERRORS
+
+    // Получение локации параметра 'point' в шейдере
+    GLuint textureCoordsLocation = glGetAttribLocation(grassShader, "textureCoordVertexShader");
     CHECK_GL_ERRORS
     // Устанавливаем параметры для получения данных из массива атрибутов (по 4 значение типа float на одну вершину)
     // how do C binary data must be interpret in shader.

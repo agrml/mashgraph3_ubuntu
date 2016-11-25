@@ -35,7 +35,7 @@ void DrawGround() {
     glDrawArrays(GL_TRIANGLES, 0, 6);
     CHECK_GL_ERRORS
 
-    GL::bindTexture(groundShader, "textureCoordFragmentShader", groundTexture);
+    GL::bindTexture(groundShader, "groundTexture", groundTexture);
     CHECK_GL_ERRORS
 
     // Отсоединяем VAO
@@ -69,6 +69,10 @@ void DrawGrass() {
     // Отрисовка травинок в количестве GRASS_INSTANCES
     glDrawArraysInstanced(GL_TRIANGLES, 0, grassPointsCount, GRASS_INSTANCES);
     CHECK_GL_ERRORS
+
+    GL::bindTexture(grassShader, "grassTexture", grassTexture);
+    CHECK_GL_ERRORS
+
     glBindVertexArray(0);
     CHECK_GL_ERRORS
     glUseProgram(0);
@@ -98,6 +102,7 @@ void CreateGrass() {
     createGrassPositions();
     createGrassVariences();
     createGrassRotations();
+    createGrassTexture();
 
     // Отвязываем VAO
     glBindVertexArray(0);

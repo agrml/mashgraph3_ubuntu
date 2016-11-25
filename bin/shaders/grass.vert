@@ -6,6 +6,9 @@ in vec2 position;
 // смещение
 in vec4 variance;
 //in float fi;
+in vec2 textureCoordVertexShader;
+
+out vec2 textureCoordFragmentShader;
 
 uniform mat4 camera;
 
@@ -33,5 +36,5 @@ void main() {
 
 	// object in -1..1 -> scale and rotate cube [cos cos sin -sin -- rotation matrix] -> locate cube in map
 	// point -- point in cube; positionMatrix -- locates cube in the map
-	// variance * point.y -- animation  // TODO: rewrite
+    textureCoordFragmentShader = textureCoordVertexShader;
 }

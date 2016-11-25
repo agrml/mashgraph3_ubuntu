@@ -21,6 +21,7 @@ GLuint grassPointsCount; // Количество вершин у модели т
 GLuint grassShader;      // Шейдер, рисующий траву
 GLuint grassVAO;         // VAO для травы (что такое VAO почитайте в доках)
 GLuint grassVariance;    // Буфер для смещения координат травинок
+GLuint grassTexture;
 
 GLuint groundTexture;
 GLuint groundShader; // Шейдер для земли

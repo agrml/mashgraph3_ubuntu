@@ -14,6 +14,7 @@ extern GLuint grassPointsCount;
 extern GLuint grassShader;
 extern GLuint grassVAO;
 extern GLuint grassVariance;
+extern GLuint grassTexture;
 
 extern GLuint groundTexture;
 extern GLuint groundShader;
