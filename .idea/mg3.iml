@@ -17,8 +17,6 @@
       <sourceFolder url="file://$MODULE_DIR$/source/main.cpp" isTestSource="false" />
       <sourceFolder url="file://$MODULE_DIR$/source/Globals.h" isTestSource="false" />
       <sourceFolder url="file://$MODULE_DIR$/source/Graphics.cpp" isTestSource="false" />
-      <sourceFolder url="file://$MODULE_DIR$/source/Mesh_.h" isTestSource="false" />
-      <sourceFolder url="file://$MODULE_DIR$/source/Mesh_.cpp" isTestSource="false" />
       <sourceFolder url="file://$MODULE_DIR$/source/Globals.cpp" isTestSource="false" />
       <sourceFolder url="file://$MODULE_DIR$/source/Funcs.h" isTestSource="false" />
       <sourceFolder url="file://$MODULE_DIR$/source/Funcs.cpp" isTestSource="false" />
