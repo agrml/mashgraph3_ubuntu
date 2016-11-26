@@ -158,16 +158,12 @@ void DrawNano() {
     glUniformMatrix4fv(cameraLocation, 1, GL_TRUE, camera.getMatrix().data().data());
     CHECK_GL_ERRORS
 
-    VM::mat4 positionMatrix(1.0);
-    positionMatrix[3][0] = 0.5;  // positions.x;
-    positionMatrix[3][2] = 0.5;  // positions.y;
-    GLint positionMatrixLocation = glGetUniformLocation(nanoShader, "positionMatrix");
+    constexpr float x = 0.1;
+    constexpr float y = 0.9;
+    GLint positionsLocation = glGetUniformLocation(nanoShader, "positions");
     CHECK_GL_ERRORS
-    glUniformMatrix4fv(positionMatrixLocation, 1, GL_TRUE, positionMatrix.data().data());
+    glUniform2f(positionsLocation, x, y);
     CHECK_GL_ERRORS
-
-    // texture
-    // TODO
 
     ourModel->Draw(nanoShader);
 
