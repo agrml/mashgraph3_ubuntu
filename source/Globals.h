@@ -22,3 +22,6 @@ extern GLuint groundVAO;
 
 extern float fWind;
 
+extern GLuint nanoTexture;
+extern GLuint nanoShader;
+extern GLuint nanoVAO;

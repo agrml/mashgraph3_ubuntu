@@ -11,6 +11,13 @@
 #include "Funcs.h"
 #include "Graphics.h"
 #include "Globals.h"
+//#include "Mesh_.h"
+
+#include "model.h"
+#include "mesh.h"
+#include "shader.h"
+
+//Mesh_ *mesh;
 
 // Функция, рисующая замлю
 void DrawGround() {
@@ -129,6 +136,45 @@ void CreateGround() {
     CHECK_GL_ERRORS
 }
 
+
+Model *ourModel = nullptr;  // FIXME
+
+void CreateNano()
+{
+    nanoShader = GL::CompileShaderProgram("nano");
+    CHECK_GL_ERRORS
+    ourModel = new Model("../nanosuit/nanosuit.obj");
+    CHECK_GL_ERRORS
+}
+
+void DrawNano() {
+    glUseProgram(nanoShader);
+    CHECK_GL_ERRORS
+
+    // set uniforms
+    GLint cameraLocation = glGetUniformLocation(nanoShader, "camera");
+    CHECK_GL_ERRORS
+    glUniformMatrix4fv(cameraLocation, 1, GL_TRUE, camera.getMatrix().data().data());
+    CHECK_GL_ERRORS
+
+    VM::mat4 positionMatrix(1.0);
+    positionMatrix[3][0] = 0.5;  // positions.x;
+    positionMatrix[3][2] = 0.5;  // positions.y;
+    GLint positionMatrixLocation = glGetUniformLocation(nanoShader, "positionMatrix");
+    CHECK_GL_ERRORS
+    glUniformMatrix4fv(positionMatrixLocation, 1, GL_TRUE, positionMatrix.data().data());
+    CHECK_GL_ERRORS
+
+    // texture
+    // TODO
+
+    ourModel->Draw(nanoShader);
+
+    glUseProgram(0);
+    CHECK_GL_ERRORS
+}
+
+
 // Эта функция вызывается для обновления экрана
 void RenderLayouts() {
     // Включение буфера глубины
@@ -139,5 +185,8 @@ void RenderLayouts() {
     // Рисуем меши
     DrawGround();
     DrawGrass();
+
+    DrawNano();
+
     glutSwapBuffers();
 }
