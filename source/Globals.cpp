@@ -28,3 +28,7 @@ GLuint groundShader; // Шейдер для земли
 GLuint groundVAO; // VAO для земли
 
 float fWind = 1;
+
+GLuint nanoTexture;
+GLuint nanoShader; // Шейдер для земли
+GLuint nanoVAO; // VAO для земли

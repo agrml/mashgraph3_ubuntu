@@ -59,4 +59,6 @@ target_link_libraries(
         ${GLUT_LIBRARY}
         ${OPENGL_LIBRARIES}
         ${GLEW_LIBRARY}
-        SOIL)
+        SOIL
+        assimp
+)

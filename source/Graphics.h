@@ -9,3 +9,6 @@ void DrawGrass();
 void CreateGrass();
 void CreateGround();
 void RenderLayouts();
+
+void CreateNano();
+void DrawNano();
