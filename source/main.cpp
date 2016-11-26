@@ -121,12 +121,18 @@ int main(int argc, char **argv)
         std::cout << "glew inited" << std::endl;
         CreateCamera();
         std::cout << "Camera created" << std::endl;
-        CreateGround();
-        std::cout << "Ground created" << std::endl;
         CreateGrass();
         std::cout << "Grass created" << std::endl;
+        CreateGround();
+        std::cout << "Ground created" << std::endl;
+
         CreateNano();
         std::cout << "Nano created" << std::endl;
+        CreateTree();
+        std::cout << "Tree created" << std::endl;
+
+
+
         glutMainLoop();
     } catch (std::string s) {
         std::cout << s << std::endl;

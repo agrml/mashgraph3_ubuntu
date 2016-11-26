@@ -99,9 +99,9 @@ private:
             vector.z = mesh->mVertices[i].z;
             vertex.Position = vector;
             // Normals
-            vector.x = mesh->mNormals[i].x;
-            vector.y = mesh->mNormals[i].y;
-            vector.z = mesh->mNormals[i].z;
+//            vector.x = mesh->mNormals[i].x;
+//            vector.y = mesh->mNormals[i].y;
+//            vector.z = mesh->mNormals[i].z;
             vertex.Normal = vector;
             // Texture Coordinates
             if(mesh->mTextureCoords[0]) // Does the mesh contain texture coordinates?
@@ -116,14 +116,14 @@ private:
             else
                 vertex.TexCoords = VM::vec2(0.0f, 0.0f);
             // Tangent
-            vector.x = mesh->mTangents[i].x;
-            vector.y = mesh->mTangents[i].y;
-            vector.z = mesh->mTangents[i].z;
+//            vector.x = mesh->mTangents[i].x;
+//            vector.y = mesh->mTangents[i].y;
+//            vector.z = mesh->mTangents[i].z;
             vertex.Tangent = vector;
             // Bitangent
-            vector.x = mesh->mBitangents[i].x;
-            vector.y = mesh->mBitangents[i].y;
-            vector.z = mesh->mBitangents[i].z;
+//            vector.x = mesh->mBitangents[i].x;
+//            vector.y = mesh->mBitangents[i].y;
+//            vector.z = mesh->mBitangents[i].z;
             vertex.Bitangent = vector;
             vertices.push_back(vertex);
         }

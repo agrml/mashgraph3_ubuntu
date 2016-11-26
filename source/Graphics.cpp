@@ -138,13 +138,13 @@ void CreateGround() {
 }
 
 
-Model *ourModel = nullptr;  // FIXME
+Model *nanoModel = nullptr;  // FIXME
 
 void CreateNano()
 {
     nanoShader = GL::CompileShaderProgram("nano");
     CHECK_GL_ERRORS
-    ourModel = new Model("../nanosuit/nanosuit.obj");
+    nanoModel = new Model("../nanosuit/nanosuit.obj");
     CHECK_GL_ERRORS
 }
 
@@ -158,19 +158,53 @@ void DrawNano() {
     glUniformMatrix4fv(cameraLocation, 1, GL_TRUE, camera.getMatrix().data().data());
     CHECK_GL_ERRORS
 
-    constexpr float x = 0.1;
-    constexpr float y = 0.9;
+    constexpr float x = 0.3;
+    constexpr float y = 0.7;
+    constexpr float scale = 0.3;
     GLint positionsLocation = glGetUniformLocation(nanoShader, "positions");
     CHECK_GL_ERRORS
-    glUniform2f(positionsLocation, x, y);
+    glUniform3f(positionsLocation, x, y, scale);
     CHECK_GL_ERRORS
 
-    ourModel->Draw(nanoShader);
+    nanoModel->Draw(nanoShader);
 
     glUseProgram(0);
     CHECK_GL_ERRORS
 }
 
+Model *treeModel = nullptr;  // FIXME
+
+void CreateTree()
+{
+    treeShader = GL::CompileShaderProgram("nano");
+    CHECK_GL_ERRORS
+    treeModel = new Model("../tree/tree.obj");
+    CHECK_GL_ERRORS
+}
+
+void DrawTree() {
+    glUseProgram(nanoShader);
+    CHECK_GL_ERRORS
+
+    // set uniforms
+    GLint cameraLocation = glGetUniformLocation(nanoShader, "camera");
+    CHECK_GL_ERRORS
+    glUniformMatrix4fv(cameraLocation, 1, GL_TRUE, camera.getMatrix().data().data());
+    CHECK_GL_ERRORS
+
+    constexpr float x = 0.1;
+    constexpr float y = 0.9;
+    constexpr float scale = 5;
+    GLint positionsLocation = glGetUniformLocation(nanoShader, "positions");
+    CHECK_GL_ERRORS
+    glUniform3f(positionsLocation, x, y, scale);
+    CHECK_GL_ERRORS
+
+    treeModel->Draw(nanoShader);
+
+    glUseProgram(0);
+    CHECK_GL_ERRORS
+}
 
 // Эта функция вызывается для обновления экрана
 void RenderLayouts() {
@@ -182,8 +216,8 @@ void RenderLayouts() {
     // Рисуем меши
     DrawGround();
     DrawGrass();
-
     DrawNano();
+    DrawTree();
 
     glutSwapBuffers();
 }

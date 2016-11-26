@@ -12,3 +12,5 @@ void RenderLayouts();
 
 void CreateNano();
 void DrawNano();
+void CreateTree();
+void DrawTree();

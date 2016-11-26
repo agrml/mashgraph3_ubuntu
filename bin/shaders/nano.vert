@@ -7,7 +7,7 @@ layout (location = 2) in vec2 texCoords;
 out vec2 TexCoords;
 
 uniform mat4 camera;
-uniform vec2 positions;
+uniform vec3 positions;
 
 void main()
 {
@@ -15,7 +15,7 @@ void main()
     scaleMatrix[0][0] = 0.01;
     scaleMatrix[1][1] = 0.01;
     scaleMatrix[2][2] = 0.01;
-    scaleMatrix[3][3] = 0.3; // w -- scale factor
+    scaleMatrix[3][3] = positions.z; // w -- scale factor
 
     mat4 positionMatrix = mat4(1.0);
     positionMatrix[3][0] = positions.x;
