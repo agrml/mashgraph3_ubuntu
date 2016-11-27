@@ -1,3 +1,9 @@
+/**
+ * An interface to Assimp library.
+ *
+ * Sources are gotten from https://github.com/JoeyDeVries/LearnOpenGL and edited to be compatiant with task3's backbone.
+ */
+
 #pragma once
 // Std. Includes
 #include <string>
