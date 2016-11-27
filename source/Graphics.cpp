@@ -179,9 +179,10 @@ void RenderLayouts() {
     // Рисуем меши
     DrawGround();
     DrawGrass();
-    DrowObject(nanoModel, 0.25, 0.7, 0.133, 0.3);
+    DrowObject(nanoModel, 0.25, 0.7, 0.1625, 0.3);
     DrowObject(treeModel, 0.1, 0.9, 0, 5);
-    DrowObject(stoneModel, 0.17, 0.73, 0, 0.1);
+    DrowObject(stoneModel, 0.17, 0.73, 0.0295, 0.1);
+    DrowObject(stoneModel, 0.3, 0.92, 0.016, 0.2);
 
     glutSwapBuffers();
 }
