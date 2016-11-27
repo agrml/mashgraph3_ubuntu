@@ -82,6 +82,37 @@ void DrawGrass() {
     CHECK_GL_ERRORS
 }
 
+void DrawLake() {
+    // Используем шейдер для земли
+    glUseProgram(groundShader);
+    CHECK_GL_ERRORS
+
+    // Устанавливаем юниформ для шейдера. В данном случае передадим перспективную матрицу камеры
+    // Находим локацию юниформа 'camera' в шейдере
+    GLint cameraLocation = glGetUniformLocation(groundShader, "camera");
+    CHECK_GL_ERRORS
+    // Устанавливаем юниформ (загружаем на GPU матрицу проекции?)
+    glUniformMatrix4fv(cameraLocation, 1, GL_TRUE, camera.getMatrix().data().data());
+    CHECK_GL_ERRORS
+
+    // Подключаем VAO, который содержит буферы, необходимые для отрисовки земли
+    glBindVertexArray(lakeVAO);
+    CHECK_GL_ERRORS
+
+    GL::bindTexture(groundShader, "groundTexture", lakeTexture);
+    CHECK_GL_ERRORS
+
+    glDrawArrays(GL_TRIANGLES, 0, 6);
+    CHECK_GL_ERRORS
+
+    // Отсоединяем VAO
+    glBindVertexArray(0);
+    CHECK_GL_ERRORS
+    // Отключаем шейдер
+    glUseProgram(0);
+    CHECK_GL_ERRORS
+}
+
 
 // Создание травы
 void CreateGrass() {
@@ -133,6 +164,45 @@ void CreateGround() {
     CHECK_GL_ERRORS
 }
 
+void CreateLake(float x, float y, float xx, float yy) {
+    groundShader = GL::CompileShaderProgram("ground");
+
+    glGenVertexArrays(1, &lakeVAO);
+    CHECK_GL_ERRORS
+    glBindVertexArray(lakeVAO);
+    CHECK_GL_ERRORS
+
+    std::vector<VM::vec4> lakeMeshPoints = {
+        VM::vec4(x, 0, y, 1),
+        VM::vec4(xx, 0, y, 1),
+        VM::vec4(x, 0, yy, 1),
+        VM::vec4(xx, 0, y, 1),
+        VM::vec4(x, 0, yy, 1),
+        VM::vec4(xx, 0, yy, 1),
+    };
+
+    GLuint pointsBuffer;
+    glGenBuffers(1, &pointsBuffer);
+    CHECK_GL_ERRORS
+    glBindBuffer(GL_ARRAY_BUFFER, pointsBuffer);
+    CHECK_GL_ERRORS
+    glBufferData(GL_ARRAY_BUFFER, sizeof(VM::vec4) * lakeMeshPoints.size(), lakeMeshPoints.data(), GL_STATIC_DRAW);
+    CHECK_GL_ERRORS
+    GLuint index = glGetAttribLocation(groundShader, "point");
+    CHECK_GL_ERRORS
+    glVertexAttribPointer(index, 4, GL_FLOAT, GL_FALSE, 0, 0);
+    CHECK_GL_ERRORS
+    glEnableVertexAttribArray(index);
+    CHECK_GL_ERRORS
+
+
+    createTexture(&lakeTexture, "../Texture/lake.jpg");
+
+    glBindVertexArray(0);
+    CHECK_GL_ERRORS
+    glBindBuffer(GL_ARRAY_BUFFER, 0);
+    CHECK_GL_ERRORS
+}
 
 
 
@@ -179,6 +249,7 @@ void RenderLayouts() {
     // Рисуем меши
     DrawGround();
     DrawGrass();
+    DrawLake();
 
     DrowObject(nanoModel, objectsLocations["nano"]);
     DrowObject(treeModel, objectsLocations["tree"]);

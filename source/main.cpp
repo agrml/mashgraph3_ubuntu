@@ -147,6 +147,10 @@ int main(int argc, char **argv)
         objectsLocations["wolf"] = ObjectLocation{0.9, 0.9, 0.2, 0.08, 0};
         std::cout << "Wolf created" << std::endl;
 
+        CreateLake(0.5, 0.5, 0.6, 0.6);
+        objectsLocations["lake"] = ObjectLocation{0.5, 0.5, 0, 0.08, 0.1};
+        std::cout << "Lake created" << std::endl;
+
         CreateGrass();
         std::cout << "Grass created" << std::endl;
         CreateGround();

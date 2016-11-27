@@ -15,3 +15,6 @@ void RenderLayouts();
 void CreateObject(const std::string &path,
                   Model **model);
 void DrowObject(Model *model, ObjectLocation location);
+
+void CreateLake(float x, float y, float xx, float yy);
+void DrawLake();

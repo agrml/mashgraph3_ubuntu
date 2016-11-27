@@ -40,3 +40,6 @@ Model *eagleModel = nullptr;  // FIXME
 Model *wolfModel = nullptr;  // FIXME
 
 std::map<std::string, ObjectLocation> objectsLocations;
+
+GLuint lakeVAO;
+GLuint lakeTexture;

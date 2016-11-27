@@ -34,3 +34,6 @@ extern Model *eagleModel;
 extern Model *wolfModel;
 
 extern std::map<std::string, ObjectLocation> objectsLocations;
+
+extern GLuint lakeVAO;
+extern GLuint lakeTexture;
