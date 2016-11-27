@@ -125,12 +125,13 @@ int main(int argc, char **argv)
         std::cout << "Grass created" << std::endl;
         CreateGround();
         std::cout << "Ground created" << std::endl;
-        CreateNano();
+
+        CreateObject("../objects/nanosuit/nanosuit.obj", &nanoModel);
         std::cout << "Nano created" << std::endl;
-        CreateTree();
+        CreateObject("../objects/tree/tree.obj", &treeModel);
         std::cout << "Tree created" << std::endl;
-
-
+        CreateObject("../objects/stone/stone.obj", &stoneModel);
+        std::cout << "Stone created" << std::endl;
 
         glutMainLoop();
     } catch (std::string s) {

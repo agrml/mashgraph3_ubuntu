@@ -4,6 +4,8 @@
 
 #pragma once
 
+#include "model.h"
+
 extern uint GRASS_INSTANCES;
 extern uint screenWidth;
 extern uint screenHeight;
@@ -23,4 +25,7 @@ extern GLuint groundVAO;
 extern float fWind;
 
 extern GLuint nanoShader;
-extern GLuint treeShader;
+
+extern Model *nanoModel;
+extern Model *treeModel;
+extern Model *stoneModel;
