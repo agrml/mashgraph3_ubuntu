@@ -173,12 +173,12 @@ void CreateLake(float x, float y, float xx, float yy) {
     CHECK_GL_ERRORS
 
     std::vector<VM::vec4> lakeMeshPoints = {
-        VM::vec4(x, 0, y, 1),
-        VM::vec4(xx, 0, y, 1),
-        VM::vec4(x, 0, yy, 1),
-        VM::vec4(xx, 0, y, 1),
-        VM::vec4(x, 0, yy, 1),
-        VM::vec4(xx, 0, yy, 1),
+        VM::vec4(x, 0.001, y, 1),
+        VM::vec4(xx, 0.001, y, 1),
+        VM::vec4(x, 0.001, yy, 1),
+        VM::vec4(xx, 0.001, y, 1),
+        VM::vec4(x, 0.001, yy, 1),
+        VM::vec4(xx, 0.001, yy, 1)
     };
 
     GLuint pointsBuffer;
