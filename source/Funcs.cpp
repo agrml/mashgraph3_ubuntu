@@ -118,15 +118,17 @@ void UpdateGrassVariance() {
     constexpr float damping = 0.1;  // затухание
 
     for (uint i = 0; i < GRASS_INSTANCES; ++i) {
+        //    auto tmp = glutGet(GLUT_ELAPSED_TIME);
+        //    float deltaT = (glutGet(GLUT_ELAPSED_TIME) - t0) / 3000;
+        //    t0 = tmp;
+
         a[i] = xyzw[i].x * (-k) + fWind - v[i] * damping;
         v[i] += a[i] * deltaT;
 
         xyzw[i].x += v[i] * deltaT + a[i] * sqr(deltaT) / 2;
 
         auto tmp = sqr(r) - sqr(xyzw[i].x) - sqr(xyzw[i].z);
-//        if (tmp < 0) {
-//            std::cerr << "tmp < 0" << std::endl;
-//        }
+
         tmp = std::max(tmp, static_cast<float>(0));
         xyzw[i].y = sqrt(tmp) - r;
     }
