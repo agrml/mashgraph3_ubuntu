@@ -30,5 +30,7 @@ extern Model *nanoModel;
 extern Model *treeModel;
 extern Model *stoneModel;
 extern Model *boxModel;
+extern Model *eagleModel;
+extern Model *wolfModel;
 
 extern std::map<std::string, ObjectLocation> objectsLocations;

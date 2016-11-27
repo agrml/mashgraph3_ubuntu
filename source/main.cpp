@@ -138,7 +138,15 @@ int main(int argc, char **argv)
         CreateObject("../objects/box/Crate1.obj", &boxModel);
         objectsLocations["box"] = ObjectLocation{0.9, 0.9, 0.105, 0.1, 0.15};
         std::cout << "Box created" << std::endl;
-//
+
+        CreateObject("../objects/eagle/EAGLE_2.OBJ", &eagleModel);
+        objectsLocations["eagle"] = ObjectLocation{0.5, 0.5, 0.7, 0.02, 0};
+        std::cout << "Eagle created" << std::endl;
+
+        CreateObject("../objects/wolf/WOLF.OBJ", &wolfModel);
+        objectsLocations["wolf"] = ObjectLocation{0.9, 0.9, 0.2, 0.08, 0};
+        std::cout << "Wolf created" << std::endl;
+
         CreateGrass();
         std::cout << "Grass created" << std::endl;
         CreateGround();

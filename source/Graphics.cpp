@@ -185,6 +185,8 @@ void RenderLayouts() {
     DrowObject(stoneModel, objectsLocations["stone1"]);
     DrowObject(stoneModel, objectsLocations["stone2"]);
     DrowObject(boxModel, objectsLocations["box"]);
+    DrowObject(eagleModel, objectsLocations["eagle"]);
+    DrowObject(wolfModel, objectsLocations["wolf"]);
 
     glutSwapBuffers();
 }

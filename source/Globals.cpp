@@ -36,5 +36,7 @@ Model *nanoModel = nullptr;  // FIXME
 Model *treeModel = nullptr;  // FIXME
 Model *stoneModel = nullptr;  // FIXME
 Model *boxModel = nullptr;  // FIXME
+Model *eagleModel = nullptr;  // FIXME
+Model *wolfModel = nullptr;  // FIXME
 
 std::map<std::string, ObjectLocation> objectsLocations;
