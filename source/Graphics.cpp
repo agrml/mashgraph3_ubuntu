@@ -101,7 +101,7 @@ void CreateGrass() {
     createGrassPoints();
     createGrassPositions();
     createGrassVariences();
-    createGrassTexture();
+    createTexture(&grassTexture, "../Texture/grass.jpg");
 
     // Отвязываем VAO
     glBindVertexArray(0);
@@ -121,7 +121,8 @@ void CreateGround() {
     CHECK_GL_ERRORS
 
     createGroundPoints();
-    createGroundTexture();
+    createTexture(&groundTexture, "../Texture/ground.jpg");
+
 
     glBindVertexArray(0);
     CHECK_GL_ERRORS

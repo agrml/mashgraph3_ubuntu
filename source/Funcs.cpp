@@ -202,31 +202,16 @@ void createGroundPoints()
     CHECK_GL_ERRORS
 }
 
-void createGroundTexture()
+
+void createTexture(GLuint *texture, const std::string &path)
 {
-    glGenTextures(1, &groundTexture);
-    glBindTexture(GL_TEXTURE_2D, groundTexture);
-    // Set the groundTexture wrapping/filtering options (on the currently bound groundTexture object) ...
-
-    // Load and generate the groundTexture
-    int width, height;
-    unsigned char *image = SOIL_load_image("../Texture/grass.jpg", &width, &height, 0, SOIL_LOAD_RGB);  // fixme
-    glTexImage2D(GL_TEXTURE_2D, 0, GL_RGB, width, height, 0, GL_RGB, GL_UNSIGNED_BYTE, image);
-    glGenerateMipmap(GL_TEXTURE_2D);
-
-    SOIL_free_image_data(image);
-    glBindTexture(GL_TEXTURE_2D, 0);
-}
-
-void createGrassTexture()
-{
-    glGenTextures(1, &grassTexture);
-    glBindTexture(GL_TEXTURE_2D, grassTexture);
+    glGenTextures(1, texture);
+    glBindTexture(GL_TEXTURE_2D, *texture);
     // Set the grassTexture wrapping/filtering options (on the currently bound grassTexture object) ...
 
     // Load and generate the grassTexture
     int width, height;
-    unsigned char *image = SOIL_load_image("../Texture/ground.jpg", &width, &height, 0, SOIL_LOAD_RGB);  // fixme
+    unsigned char *image = SOIL_load_image(path.c_str(), &width, &height, 0, SOIL_LOAD_RGB);  // fixme
     glTexImage2D(GL_TEXTURE_2D, 0, GL_RGB, width, height, 0, GL_RGB, GL_UNSIGNED_BYTE, image);
     glGenerateMipmap(GL_TEXTURE_2D);
 

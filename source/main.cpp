@@ -121,10 +121,10 @@ int main(int argc, char **argv)
         std::cout << "glew inited" << std::endl;
         CreateCamera();
         std::cout << "Camera created" << std::endl;
-        CreateGrass();
-        std::cout << "Grass created" << std::endl;
         CreateGround();
         std::cout << "Ground created" << std::endl;
+        CreateGrass();
+        std::cout << "Grass created" << std::endl;
         glutMainLoop();
     } catch (std::string s) {
         std::cout << s << std::endl;

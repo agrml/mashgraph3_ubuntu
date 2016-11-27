@@ -9,11 +9,10 @@
 void createGrassPoints();
 void createGrassPositions();
 void createGrassVariences();
-void createGrassTexture();
-
 std::vector<VM::vec4> GenMesh(uint n);
 std::vector<VM::vec4> GenerateGrassPositions();
 void UpdateGrassVariance();
 
 void createGroundPoints();
-void createGroundTexture();
+
+void createTexture(GLuint *texture, const std::string &path);
