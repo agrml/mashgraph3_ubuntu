@@ -139,7 +139,6 @@ void CreateGround() {
 void CreateObject(const std::string &path,
                   Model **model)
 {
-
     if (!nanoShader) {
         nanoShader = GL::CompileShaderProgram("nano");;
     }
@@ -185,6 +184,7 @@ void RenderLayouts() {
     DrowObject(treeModel, objectsLocations["tree"]);
     DrowObject(stoneModel, objectsLocations["stone1"]);
     DrowObject(stoneModel, objectsLocations["stone2"]);
+    DrowObject(boxModel, objectsLocations["box"]);
 
     glutSwapBuffers();
 }

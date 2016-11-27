@@ -35,5 +35,6 @@ GLuint nanoShader = 0;
 Model *nanoModel = nullptr;  // FIXME
 Model *treeModel = nullptr;  // FIXME
 Model *stoneModel = nullptr;  // FIXME
+Model *boxModel = nullptr;  // FIXME
 
 std::map<std::string, ObjectLocation> objectsLocations;
