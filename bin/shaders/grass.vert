@@ -9,6 +9,7 @@ in vec4 variance;
 out float randColor;
 
 out vec2 textureCoordFragmentShader;
+out float higth;
 
 uniform mat4 camera;
 
@@ -43,5 +44,6 @@ void main() {
 	// point -- point in cube; positionMatrix -- locates cube in the map
 
 	textureCoordFragmentShader = vec2(point.y, point.x);
+	higth = point.y;
 	randColor = (fi + scale + point.x / 2 + point.y / 2) / 4;
 }
