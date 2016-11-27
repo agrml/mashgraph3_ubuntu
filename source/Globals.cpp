@@ -5,7 +5,7 @@
 #include "Utility.h"
 #include "model.h"
 
-uint GRASS_INSTANCES = 1000; // Количество травинок
+uint GRASS_INSTANCES = 10000; // Количество травинок
 
 // Размеры экрана
 uint screenWidth = 1920;
@@ -35,3 +35,5 @@ GLuint nanoShader = 0;
 Model *nanoModel = nullptr;  // FIXME
 Model *treeModel = nullptr;  // FIXME
 Model *stoneModel = nullptr;  // FIXME
+
+std::map<std::string, ObjectLocation> objectsLocations;

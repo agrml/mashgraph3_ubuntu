@@ -14,4 +14,4 @@ void RenderLayouts();
 
 void CreateObject(const std::string &path,
                   Model **model);
-void DrowObject(Model *model, float x, float y, float z, float scale);
+void DrowObject(Model *model, ObjectLocation location);

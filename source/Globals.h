@@ -29,3 +29,5 @@ extern GLuint nanoShader;
 extern Model *nanoModel;
 extern Model *treeModel;
 extern Model *stoneModel;
+
+extern std::map<std::string, ObjectLocation> objectsLocations;

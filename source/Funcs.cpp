@@ -124,9 +124,9 @@ void UpdateGrassVariance() {
         xyzw[i].x += v[i] * deltaT + a[i] * sqr(deltaT) / 2;
 
         auto tmp = sqr(r) - sqr(xyzw[i].x) - sqr(xyzw[i].z);
-        if (tmp < 0) {
-            std::cerr << "tmp < 0" << std::endl;
-        }
+//        if (tmp < 0) {
+//            std::cerr << "tmp < 0" << std::endl;
+//        }
         tmp = std::max(tmp, static_cast<float>(0));
         xyzw[i].y = sqrt(tmp) - r;
     }
@@ -146,8 +146,23 @@ void UpdateGrassVariance() {
 std::vector<VM::vec4> GenerateGrassPositions() {
     std::vector<VM::vec4> grassPositions(GRASS_INSTANCES);
     for (uint i = 0; i < GRASS_INSTANCES; ++i) {
-        grassPositions[i] = VM::vec4(static_cast<float>(rand()) / RAND_MAX,  // x
-                                     static_cast<float>(rand()) / RAND_MAX,  // x
+        float x;
+        float y;
+        bool done = false;
+        while (!done) {
+            done = true;
+            x = static_cast<float>(rand()) / RAND_MAX;
+            y = static_cast<float>(rand()) / RAND_MAX;
+            for (const auto &pair : objectsLocations) {
+                const auto &elem = pair.second;
+                if (sqr(x - elem.x) + sqr(y - elem.y) <= sqr(elem.r)) {
+                    done = false;
+                    break;
+                }
+            }
+        }
+        grassPositions[i] = VM::vec4(x,
+                                     y,
                                      static_cast<float>(rand()) / RAND_MAX * M_PI,  // fi
                                      0.05 + 0.1 * (static_cast<float>(rand()) / RAND_MAX));  // scale
     }

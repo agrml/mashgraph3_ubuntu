@@ -121,17 +121,24 @@ int main(int argc, char **argv)
         std::cout << "glew inited" << std::endl;
         CreateCamera();
         std::cout << "Camera created" << std::endl;
+
+        CreateObject("../objects/nanosuit/nanosuit.obj", &nanoModel);
+        objectsLocations["nano"] = ObjectLocation{0.25, 0.7, 0.1625, 0.3, 0};
+        std::cout << "Nano created" << std::endl;
+
+        CreateObject("../objects/tree/tree.obj", &treeModel);
+        objectsLocations["tree"] = ObjectLocation{0.1, 0.9, 0, 5, 0.1};
+        std::cout << "Tree created" << std::endl;
+
+        CreateObject("../objects/stone/stone.obj", &stoneModel);
+        objectsLocations["stone1"] = ObjectLocation{0.17, 0.73, 0.0295, 0.1, 0.2};
+        objectsLocations["stone2"] = ObjectLocation{0.3, 0.92, 0.016, 0.2, 0.1};
+        std::cout << "Stones created" << std::endl;
+
         CreateGrass();
         std::cout << "Grass created" << std::endl;
         CreateGround();
         std::cout << "Ground created" << std::endl;
-
-        CreateObject("../objects/nanosuit/nanosuit.obj", &nanoModel);
-        std::cout << "Nano created" << std::endl;
-        CreateObject("../objects/tree/tree.obj", &treeModel);
-        std::cout << "Tree created" << std::endl;
-        CreateObject("../objects/stone/stone.obj", &stoneModel);
-        std::cout << "Stone created" << std::endl;
 
         glutMainLoop();
     } catch (std::string s) {
