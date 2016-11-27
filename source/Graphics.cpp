@@ -37,12 +37,13 @@ void DrawGround() {
     glBindVertexArray(groundVAO);
     CHECK_GL_ERRORS
 
-    // Рисуем землю: 2 треугольника (6 вершин)
-    // note: befor this moment we haven't instruct OpenGL how to interpeate vertexes.
-    glDrawArrays(GL_TRIANGLES, 0, 6);
-    CHECK_GL_ERRORS
 
     GL::bindTexture(groundShader, "groundTexture", groundTexture);
+    CHECK_GL_ERRORS
+
+        // Рисуем землю: 2 треугольника (6 вершин)
+    // note: befor this moment we haven't instruct OpenGL how to interpeate vertexes.
+    glDrawArrays(GL_TRIANGLES, 0, 6);
     CHECK_GL_ERRORS
 
     // Отсоединяем VAO
@@ -65,19 +66,14 @@ void DrawGrass() {
     glBindVertexArray(grassVAO);
     CHECK_GL_ERRORS
 
-//    GLint vertexColorLocation = glGetUniformLocation(grassShader, "grassColor");
-//    glUniform3f(vertexColorLocation,
-//                static_cast<float>(rand()) / RAND_MAX,
-//                static_cast<float>(rand()) / RAND_MAX,
-//                static_cast<float>(rand()) / RAND_MAX);
-
     // Обновляем смещения для травы
     UpdateGrassVariance();
-    // Отрисовка травинок в количестве GRASS_INSTANCES
-    glDrawArraysInstanced(GL_TRIANGLES, 0, grassPointsCount, GRASS_INSTANCES);
-    CHECK_GL_ERRORS
 
     GL::bindTexture(grassShader, "grassTexture", grassTexture);
+    CHECK_GL_ERRORS
+
+        // Отрисовка травинок в количестве GRASS_INSTANCES
+    glDrawArraysInstanced(GL_TRIANGLES, 0, grassPointsCount, GRASS_INSTANCES);
     CHECK_GL_ERRORS
 
     glBindVertexArray(0);
