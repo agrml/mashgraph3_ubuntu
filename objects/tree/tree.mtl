@@ -7,14 +7,14 @@ newmtl leaf_col_0_1
 Kd 0.000000 0.000000 0.000000
 Ks 0.000000 0.000000 0.000000
 d 0.000000
-map_Kd img.png
+map_Kd spar1.png
 newmtl leaf_col_0_2
 Kd 0.000000 0.000000 0.000000
 Ks 0.000000 0.000000 0.000000
 d 0.000000
-map_Kd img.png
+map_Kd spar1.png
 newmtl leaf_col_0_3
 Kd 0.000000 0.000000 0.000000
 Ks 0.000000 0.000000 0.000000
 d 0.000000
-map_Kd img.png
+map_Kd spar1.png
