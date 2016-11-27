@@ -1,7 +1,6 @@
 #version 330
 
 in vec4 point;
-in vec2 textureCoordVertexShader;
 
 out vec2 textureCoordFragmentShader;
 
@@ -15,5 +14,6 @@ void main() {
     scaleMatrix[3][3] = 0.1; // w -- scale factor
 
     gl_Position = camera * point;
-    textureCoordFragmentShader = textureCoordVertexShader;
+    textureCoordFragmentShader = vec2(point.z, point.x);
+
 }

@@ -18,9 +18,9 @@ void createGrassPoints()
 {
     constexpr uint LOD = 23;
     // Создаём меш
-    std::vector<VM::vec4> grassPoints = GenMesh(LOD);
+    std::vector<VM::vec4> grassMeshPoints = GenMesh(LOD);
     // Сохраняем количество вершин в меше травы
-    grassPointsCount = grassPoints.size();
+    grassPointsCount = grassMeshPoints.size();
     // Здесь создаём буфер (VBO)
     GLuint pointsBuffer;
     // Это генерация одного буфера (в pointsBuffer хранится идентификатор буфера)
@@ -31,8 +31,8 @@ void createGrassPoints()
     CHECK_GL_ERRORS
     // Заполняем буфер данными из вектора
     glBufferData(GL_ARRAY_BUFFER,
-                 sizeof(VM::vec4) * grassPoints.size(),
-                 grassPoints.data(),
+                 sizeof(VM::vec4) * grassMeshPoints.size(),
+                 grassMeshPoints.data(),
                  GL_STATIC_DRAW);
     CHECK_GL_ERRORS
 
@@ -178,7 +178,7 @@ std::vector<VM::vec4> GenMesh(uint n)
 void createGroundPoints()
 {
 // Земля состоит из двух треугольников
-    std::vector<VM::vec4> meshPoints = {
+    std::vector<VM::vec4> groundMeshPoints = {
         VM::vec4(0, 0, 0, 1),
         VM::vec4(1, 0, 0, 1),
         VM::vec4(1, 0, 1, 1),
@@ -192,13 +192,13 @@ void createGroundPoints()
     CHECK_GL_ERRORS
     glBindBuffer(GL_ARRAY_BUFFER, pointsBuffer);
     CHECK_GL_ERRORS
-    glBufferData(GL_ARRAY_BUFFER, sizeof(VM::vec4) * meshPoints.size(), meshPoints.data(), GL_STATIC_DRAW);
+    glBufferData(GL_ARRAY_BUFFER, sizeof(VM::vec4) * groundMeshPoints.size(), groundMeshPoints.data(), GL_STATIC_DRAW);
     CHECK_GL_ERRORS
     GLuint index = glGetAttribLocation(groundShader, "point");
     CHECK_GL_ERRORS
-    glEnableVertexAttribArray(index);
-    CHECK_GL_ERRORS
     glVertexAttribPointer(index, 4, GL_FLOAT, GL_FALSE, 0, 0);
+    CHECK_GL_ERRORS
+    glEnableVertexAttribArray(index);
     CHECK_GL_ERRORS
 }
 
@@ -216,46 +216,6 @@ void createGroundTexture()
 
     SOIL_free_image_data(image);
     glBindTexture(GL_TEXTURE_2D, 0);
-
-    // Здесь создаём буфер (VBO)
-    GLuint textureBuffer;
-    // Это генерация одного буфера (в pointsBuffer хранится идентификатор буфера)
-    glGenBuffers(1, &textureBuffer);
-    CHECK_GL_ERRORS
-    // Привязываем сгенерированный буфер
-    glBindBuffer(GL_ARRAY_BUFFER, textureBuffer);
-    CHECK_GL_ERRORS
-    std::vector<VM::vec2> texturePoints = {
-        VM::vec2(0, 0),
-        VM::vec2(1, 0),
-        VM::vec2(1, 1),
-        VM::vec2(0, 0),
-        VM::vec2(1, 1),
-        VM::vec2(0, 1)
-    };
-    // Заполняем буфер данными из вектора
-    glBufferData(GL_ARRAY_BUFFER,
-                 sizeof(VM::vec2) * texturePoints.size(),
-                 texturePoints.data(),
-                 GL_STATIC_DRAW);
-    CHECK_GL_ERRORS
-
-    // Получение локации параметра 'point' в шейдере
-    GLuint textureCoordsLocation = glGetAttribLocation(groundShader, "textureCoordVertexShader");
-    CHECK_GL_ERRORS
-    // Устанавливаем параметры для получения данных из массива атрибутов (по 4 значение типа float на одну вершину)
-    // how do C binary data must be interpret in shader.
-    // Here we describe layout in one portion to be sent [GPU RAM -> shader program] to the shader's one call. But we can send [RAM -> GPU RAM] an array of portions per one sending.
-    glVertexAttribPointer(textureCoordsLocation, // offset to start of corresponding GLSL's variable in `in` section
-                          2, // quantity of attributes per vertex
-                          GL_FLOAT, // how to interpret bytes
-                          GL_FALSE, // do not normalize
-                          0, // size of one portion; 0 -- auto
-                          0); // offset of data
-    CHECK_GL_ERRORS
-    // Подключаем массив атрибутов к данной локации
-    glEnableVertexAttribArray(textureCoordsLocation);
-    CHECK_GL_ERRORS
 }
 
 void createGrassTexture()
