@@ -16,3 +16,5 @@ void UpdateGrassVariance();
 void createGroundPoints();
 
 void createTexture(GLuint *texture, const std::string &path);
+
+GLint TextureFromFile(const char* path, std::string directory, bool gamma = false);

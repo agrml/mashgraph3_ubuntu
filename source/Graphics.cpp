@@ -138,17 +138,21 @@ void CreateGround() {
 }
 
 
-Model *nanoModel = nullptr;  // FIXME
 
-void CreateNano()
+
+void CreateObject(const std::string &path,
+                  Model **model)
 {
-    nanoShader = GL::CompileShaderProgram("nano");
+    if (!nanoShader) {
+        nanoShader = GL::CompileShaderProgram("nano");;
+    }
     CHECK_GL_ERRORS
-    nanoModel = new Model("../nanosuit/nanosuit.obj");
+    *model = new Model(path.c_str());
     CHECK_GL_ERRORS
 }
 
-void DrawNano() {
+void DrowObject(Model *model, float x, float y, float z, float scale)
+{
     glUseProgram(nanoShader);
     CHECK_GL_ERRORS
 
@@ -158,49 +162,12 @@ void DrawNano() {
     glUniformMatrix4fv(cameraLocation, 1, GL_TRUE, camera.getMatrix().data().data());
     CHECK_GL_ERRORS
 
-    constexpr float x = 0.3;
-    constexpr float y = 0.7;
-    constexpr float scale = 0.3;
     GLint positionsLocation = glGetUniformLocation(nanoShader, "positions");
     CHECK_GL_ERRORS
-    glUniform3f(positionsLocation, x, y, scale);
+    glUniform4f(positionsLocation, x, y, z, scale);
     CHECK_GL_ERRORS
 
-    nanoModel->Draw(nanoShader);
-
-    glUseProgram(0);
-    CHECK_GL_ERRORS
-}
-
-Model *treeModel = nullptr;  // FIXME
-
-void CreateTree()
-{
-    treeShader = GL::CompileShaderProgram("nano");
-    CHECK_GL_ERRORS
-    treeModel = new Model("../tree/tree.obj");
-    CHECK_GL_ERRORS
-}
-
-void DrawTree() {
-    glUseProgram(nanoShader);
-    CHECK_GL_ERRORS
-
-    // set uniforms
-    GLint cameraLocation = glGetUniformLocation(nanoShader, "camera");
-    CHECK_GL_ERRORS
-    glUniformMatrix4fv(cameraLocation, 1, GL_TRUE, camera.getMatrix().data().data());
-    CHECK_GL_ERRORS
-
-    constexpr float x = 0.1;
-    constexpr float y = 0.9;
-    constexpr float scale = 5;
-    GLint positionsLocation = glGetUniformLocation(nanoShader, "positions");
-    CHECK_GL_ERRORS
-    glUniform3f(positionsLocation, x, y, scale);
-    CHECK_GL_ERRORS
-
-    treeModel->Draw(nanoShader);
+    model->Draw(nanoShader);
 
     glUseProgram(0);
     CHECK_GL_ERRORS
@@ -216,8 +183,9 @@ void RenderLayouts() {
     // Рисуем меши
     DrawGround();
     DrawGrass();
-    DrawNano();
-    DrawTree();
+    DrowObject(nanoModel, 0.25, 0.7, 0.133, 0.3);
+    DrowObject(treeModel, 0.1, 0.9, 0, 5);
+    DrowObject(stoneModel, 0.17, 0.73, 0, 0.1);
 
     glutSwapBuffers();
 }

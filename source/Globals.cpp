@@ -3,6 +3,7 @@
 //
 
 #include "Utility.h"
+#include "model.h"
 
 uint GRASS_INSTANCES = 1000; // Количество травинок
 
@@ -29,5 +30,8 @@ GLuint groundVAO; // VAO для земли
 
 float fWind = 1;
 
-GLuint nanoShader;
-GLuint treeShader;
+GLuint nanoShader = 0;
+
+Model *nanoModel = nullptr;  // FIXME
+Model *treeModel = nullptr;  // FIXME
+Model *stoneModel = nullptr;  // FIXME
