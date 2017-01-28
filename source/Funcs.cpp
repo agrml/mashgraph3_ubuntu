@@ -12,11 +12,15 @@
 
 #include "Funcs.h"
 #include "Globals.h"
+#include "Serializer.h"
 
 
 std::vector<VM::vec4> xyzw(GRASS_INSTANCES); // Вектор со смещениями для координат травинок
 std::vector<float> v(GRASS_INSTANCES);
 std::vector<float> a(GRASS_INSTANCES);
+
+GLuint positionBuffer;
+std::vector<VM::vec4> grassPositions;
 
 void createGrassPoints()
 {
@@ -62,9 +66,8 @@ void createGrassPoints()
 void createGrassPositions()
 {
     // Создаём позиции для травинок
-    std::vector<VM::vec4> grassPositions = GenerateGrassPositions();
+    grassPositions = GenerateGrassPositions();
     // Создаём буфер для позиций травинок
-    GLuint positionBuffer;
     glGenBuffers(1, &positionBuffer);
     CHECK_GL_ERRORS
     // Здесь мы привязываем новый буфер, так что дальше вся работа будет с ним до следующего вызова glBindBuffer
@@ -84,6 +87,20 @@ void createGrassPositions()
     glVertexAttribDivisor(positionLocation, 1);
     CHECK_GL_ERRORS
 }
+
+void serialize(ISerializer &s) {
+    for (auto &elem: grassPositions) {
+        s.InOut(elem.x);
+        s.InOut(elem.y);
+        s.InOut(elem.z);
+        s.InOut(elem.w);
+    }
+    glBindBuffer(GL_ARRAY_BUFFER, positionBuffer);
+    CHECK_GL_ERRORS
+    glBufferData(GL_ARRAY_BUFFER, sizeof(VM::vec4) * grassPositions.size(), grassPositions.data(), GL_STATIC_DRAW);
+    CHECK_GL_ERRORS
+}
+
 
 void createGrassVariences()
 {

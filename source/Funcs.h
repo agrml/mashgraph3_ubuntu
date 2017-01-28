@@ -5,6 +5,7 @@
 #pragma once
 
 #include "Utility.h"
+#include "Serializer.h"
 
 void createGrassPoints();
 void createGrassPositions();
@@ -18,3 +19,5 @@ void createGroundPoints();
 void createTexture(GLuint *texture, const std::string &path);
 
 GLint TextureFromFile(const char* path, std::string directory, bool gamma = false);
+
+void serialize(ISerializer &s);

@@ -1,5 +1,5 @@
-/Data/Dropbox/Study/University/Машграф/projects/mashgraph3/CMakeFiles/edit_cache.dir
-/Data/Dropbox/Study/University/Машграф/projects/mashgraph3/CMakeFiles/cmake_project.dir
-/Data/Dropbox/Study/University/Машграф/projects/mashgraph3/CMakeFiles/make.dir
-/Data/Dropbox/Study/University/Машграф/projects/mashgraph3/CMakeFiles/SOIL.dir
-/Data/Dropbox/Study/University/Машграф/projects/mashgraph3/CMakeFiles/rebuild_cache.dir
+/Data/Dropbox/Study/cs/3. CS MSU cs cources/3.1 Машграф/projects/mashgraph3/CMakeFiles/edit_cache.dir
+/Data/Dropbox/Study/cs/3. CS MSU cs cources/3.1 Машграф/projects/mashgraph3/CMakeFiles/make.dir
+/Data/Dropbox/Study/cs/3. CS MSU cs cources/3.1 Машграф/projects/mashgraph3/CMakeFiles/cmake_project.dir
+/Data/Dropbox/Study/cs/3. CS MSU cs cources/3.1 Машграф/projects/mashgraph3/CMakeFiles/rebuild_cache.dir
+/Data/Dropbox/Study/cs/3. CS MSU cs cources/3.1 Машграф/projects/mashgraph3/CMakeFiles/SOIL.dir

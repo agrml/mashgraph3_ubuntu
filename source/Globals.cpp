@@ -33,8 +33,8 @@ float fWind = 1;
 GLuint nanoShader = 0;
 
 Model *nanoModel = nullptr;  // FIXME
-Model *treeModel = nullptr;  // FIXME
 Model *stoneModel = nullptr;  // FIXME
+Model *treeModel = nullptr;  // FIXME
 Model *boxModel = nullptr;  // FIXME
 Model *eagleModel = nullptr;  // FIXME
 Model *wolfModel = nullptr;  // FIXME

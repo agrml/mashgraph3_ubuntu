@@ -9,7 +9,8 @@
 
 Сборка:
 1) Install appropriate libraries:
-    sudo apt-get install freeglut3-dev libglew-dev libglu1-mesa-dev
+    sudo apt install freeglut3-dev libglew-dev libglu1-mesa-dev
+    sudo apt <>
  
 Установить Assimp.
 Например, так (предупреждаю, пока он собирается (make), Вы успеете сварить кофе):
@@ -20,6 +21,7 @@
     sudo make install
 
 2) Compile (Я бы не стал :) )
+cd ./
 make
 
 3) Run

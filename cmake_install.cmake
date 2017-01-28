@@ -1,4 +1,4 @@
-# Install script for directory: /Data/Dropbox/Study/University/Машграф/projects/mashgraph3
+# Install script for directory: /Data/Dropbox/Study/cs/3. CS MSU cs cources/3.1 Машграф/projects/mashgraph3
 
 # Set the install prefix
 if(NOT DEFINED CMAKE_INSTALL_PREFIX)
@@ -40,5 +40,5 @@ endif()
 
 string(REPLACE ";" "\n" CMAKE_INSTALL_MANIFEST_CONTENT
        "${CMAKE_INSTALL_MANIFEST_FILES}")
-file(WRITE "/Data/Dropbox/Study/University/Машграф/projects/mashgraph3/${CMAKE_INSTALL_MANIFEST}"
+file(WRITE "/Data/Dropbox/Study/cs/3. CS MSU cs cources/3.1 Машграф/projects/mashgraph3/${CMAKE_INSTALL_MANIFEST}"
      "${CMAKE_INSTALL_MANIFEST_CONTENT}")

@@ -6,61 +6,209 @@
 
 #IncludeRegexTransform: 
 
-/Data/Dropbox/Study/University/Машграф/projects/mashgraph3/Utility/src/Camera.cpp
+/Data/Dropbox/Study/cs/3. CS MSU cs cources/3.1 Машграф/projects/mashgraph3/Utility/src/Camera.cpp
 Camera.h
-/Data/Dropbox/Study/University/Машграф/projects/mashgraph3/Utility/src/Camera.h
+/Data/Dropbox/Study/cs/3. CS MSU cs cources/3.1 Машграф/projects/mashgraph3/Utility/src/Camera.h
 
-/Data/Dropbox/Study/University/Машграф/projects/mashgraph3/Utility/src/GL.cpp
+/Data/Dropbox/Study/cs/3. CS MSU cs cources/3.1 Машграф/projects/mashgraph3/Utility/src/GL.cpp
 GL.h
-/Data/Dropbox/Study/University/Машграф/projects/mashgraph3/Utility/src/GL.h
+/Data/Dropbox/Study/cs/3. CS MSU cs cources/3.1 Машграф/projects/mashgraph3/Utility/src/GL.h
 
-/Data/Dropbox/Study/University/Машграф/projects/mashgraph3/Utility/src/Overall.cpp
+/Data/Dropbox/Study/cs/3. CS MSU cs cources/3.1 Машграф/projects/mashgraph3/Utility/src/Overall.cpp
 Overall.h
-/Data/Dropbox/Study/University/Машграф/projects/mashgraph3/Utility/src/Overall.h
+/Data/Dropbox/Study/cs/3. CS MSU cs cources/3.1 Машграф/projects/mashgraph3/Utility/src/Overall.h
 
-/Data/Dropbox/Study/University/Машграф/projects/mashgraph3/Utility/src/ShaderProgram.cpp
+/Data/Dropbox/Study/cs/3. CS MSU cs cources/3.1 Машграф/projects/mashgraph3/Utility/src/ShaderProgram.cpp
 ShaderProgram.h
-/Data/Dropbox/Study/University/Машграф/projects/mashgraph3/Utility/src/ShaderProgram.h
+/Data/Dropbox/Study/cs/3. CS MSU cs cources/3.1 Машграф/projects/mashgraph3/Utility/src/ShaderProgram.h
 
-/Data/Dropbox/Study/University/Машграф/projects/mashgraph3/Utility/src/Texture.cpp
+/Data/Dropbox/Study/cs/3. CS MSU cs cources/3.1 Машграф/projects/mashgraph3/Utility/src/Texture.cpp
 Texture.h
-/Data/Dropbox/Study/University/Машграф/projects/mashgraph3/Utility/src/Texture.h
+/Data/Dropbox/Study/cs/3. CS MSU cs cources/3.1 Машграф/projects/mashgraph3/Utility/src/Texture.h
 
-/Data/Dropbox/Study/University/Машграф/projects/mashgraph3/Utility/src/mat4.cpp
+/Data/Dropbox/Study/cs/3. CS MSU cs cources/3.1 Машграф/projects/mashgraph3/Utility/src/mat4.cpp
 mat4.h
-/Data/Dropbox/Study/University/Машграф/projects/mashgraph3/Utility/src/mat4.h
+/Data/Dropbox/Study/cs/3. CS MSU cs cources/3.1 Машграф/projects/mashgraph3/Utility/src/mat4.h
 
-/Data/Dropbox/Study/University/Машграф/projects/mashgraph3/Utility/src/uvec3.cpp
+/Data/Dropbox/Study/cs/3. CS MSU cs cources/3.1 Машграф/projects/mashgraph3/Utility/src/uvec3.cpp
 uvec3.h
-/Data/Dropbox/Study/University/Машграф/projects/mashgraph3/Utility/src/uvec3.h
+/Data/Dropbox/Study/cs/3. CS MSU cs cources/3.1 Машграф/projects/mashgraph3/Utility/src/uvec3.h
 algorithm
 -
 
-/Data/Dropbox/Study/University/Машграф/projects/mashgraph3/Utility/src/vec2.cpp
+/Data/Dropbox/Study/cs/3. CS MSU cs cources/3.1 Машграф/projects/mashgraph3/Utility/src/vec2.cpp
 vec2.h
-/Data/Dropbox/Study/University/Машграф/projects/mashgraph3/Utility/src/vec2.h
+/Data/Dropbox/Study/cs/3. CS MSU cs cources/3.1 Машграф/projects/mashgraph3/Utility/src/vec2.h
 
-/Data/Dropbox/Study/University/Машграф/projects/mashgraph3/Utility/src/vec3.cpp
+/Data/Dropbox/Study/cs/3. CS MSU cs cources/3.1 Машграф/projects/mashgraph3/Utility/src/vec3.cpp
 vec3.h
-/Data/Dropbox/Study/University/Машграф/projects/mashgraph3/Utility/src/vec3.h
+/Data/Dropbox/Study/cs/3. CS MSU cs cources/3.1 Машграф/projects/mashgraph3/Utility/src/vec3.h
 algorithm
 -
 
-/Data/Dropbox/Study/University/Машграф/projects/mashgraph3/Utility/src/vec4.cpp
+/Data/Dropbox/Study/cs/3. CS MSU cs cources/3.1 Машграф/projects/mashgraph3/Utility/src/vec4.cpp
 vec4.h
-/Data/Dropbox/Study/University/Машграф/projects/mashgraph3/Utility/src/vec4.h
+/Data/Dropbox/Study/cs/3. CS MSU cs cources/3.1 Машграф/projects/mashgraph3/Utility/src/vec4.h
 algorithm
 -
 
-/Data/Dropbox/Study/University/Машграф/projects/mashgraph3/source/main.cpp
+/Data/Dropbox/Study/cs/3. CS MSU cs cources/3.1 Машграф/projects/mashgraph3/source/Funcs.cpp
 iostream
 -
 vector
 -
 SOIL.h
 -
+GL/Texture.h
+-
+assimp/Importer.hpp
+-
+assimp/scene.h
+-
+assimp/postprocess.h
+-
+Funcs.h
+/Data/Dropbox/Study/cs/3. CS MSU cs cources/3.1 Машграф/projects/mashgraph3/source/Funcs.h
+Globals.h
+/Data/Dropbox/Study/cs/3. CS MSU cs cources/3.1 Машграф/projects/mashgraph3/source/Globals.h
+Serializer.h
+/Data/Dropbox/Study/cs/3. CS MSU cs cources/3.1 Машграф/projects/mashgraph3/source/Serializer.h
+
+/Data/Dropbox/Study/cs/3. CS MSU cs cources/3.1 Машграф/projects/mashgraph3/source/Funcs.h
 Utility.h
-/Data/Dropbox/Study/University/Машграф/projects/mashgraph3/source/Utility.h
+/Data/Dropbox/Study/cs/3. CS MSU cs cources/3.1 Машграф/projects/mashgraph3/source/Utility.h
+Serializer.h
+/Data/Dropbox/Study/cs/3. CS MSU cs cources/3.1 Машграф/projects/mashgraph3/source/Serializer.h
+
+/Data/Dropbox/Study/cs/3. CS MSU cs cources/3.1 Машграф/projects/mashgraph3/source/Globals.cpp
+Utility.h
+/Data/Dropbox/Study/cs/3. CS MSU cs cources/3.1 Машграф/projects/mashgraph3/source/Utility.h
+model.h
+/Data/Dropbox/Study/cs/3. CS MSU cs cources/3.1 Машграф/projects/mashgraph3/source/model.h
+
+/Data/Dropbox/Study/cs/3. CS MSU cs cources/3.1 Машграф/projects/mashgraph3/source/Globals.h
+model.h
+/Data/Dropbox/Study/cs/3. CS MSU cs cources/3.1 Машграф/projects/mashgraph3/source/model.h
+
+/Data/Dropbox/Study/cs/3. CS MSU cs cources/3.1 Машграф/projects/mashgraph3/source/Graphics.cpp
+iostream
+-
+vector
+-
+SOIL.h
+-
+GL/Texture.h
+-
+Utility.h
+/Data/Dropbox/Study/cs/3. CS MSU cs cources/3.1 Машграф/projects/mashgraph3/source/Utility.h
+Funcs.h
+/Data/Dropbox/Study/cs/3. CS MSU cs cources/3.1 Машграф/projects/mashgraph3/source/Funcs.h
+Graphics.h
+/Data/Dropbox/Study/cs/3. CS MSU cs cources/3.1 Машграф/projects/mashgraph3/source/Graphics.h
+Globals.h
+/Data/Dropbox/Study/cs/3. CS MSU cs cources/3.1 Машграф/projects/mashgraph3/source/Globals.h
+model.h
+/Data/Dropbox/Study/cs/3. CS MSU cs cources/3.1 Машграф/projects/mashgraph3/source/model.h
+mesh.h
+/Data/Dropbox/Study/cs/3. CS MSU cs cources/3.1 Машграф/projects/mashgraph3/source/mesh.h
+shader.h
+/Data/Dropbox/Study/cs/3. CS MSU cs cources/3.1 Машграф/projects/mashgraph3/source/shader.h
+
+/Data/Dropbox/Study/cs/3. CS MSU cs cources/3.1 Машграф/projects/mashgraph3/source/Graphics.h
+model.h
+/Data/Dropbox/Study/cs/3. CS MSU cs cources/3.1 Машграф/projects/mashgraph3/source/model.h
+
+/Data/Dropbox/Study/cs/3. CS MSU cs cources/3.1 Машграф/projects/mashgraph3/source/Serializer.cpp
+string
+-
+fstream
+-
+Serializer.h
+/Data/Dropbox/Study/cs/3. CS MSU cs cources/3.1 Машграф/projects/mashgraph3/source/Serializer.h
+
+/Data/Dropbox/Study/cs/3. CS MSU cs cources/3.1 Машграф/projects/mashgraph3/source/Serializer.h
+iostream
+-
+fstream
+-
+
+/Data/Dropbox/Study/cs/3. CS MSU cs cources/3.1 Машграф/projects/mashgraph3/source/main.cpp
+iostream
+-
+vector
+-
+SOIL.h
+-
+GL/Texture.h
+-
+Utility.h
+/Data/Dropbox/Study/cs/3. CS MSU cs cources/3.1 Машграф/projects/mashgraph3/source/Utility.h
+Graphics.h
+/Data/Dropbox/Study/cs/3. CS MSU cs cources/3.1 Машграф/projects/mashgraph3/source/Graphics.h
+Globals.h
+/Data/Dropbox/Study/cs/3. CS MSU cs cources/3.1 Машграф/projects/mashgraph3/source/Globals.h
+Serializer.h
+/Data/Dropbox/Study/cs/3. CS MSU cs cources/3.1 Машграф/projects/mashgraph3/source/Serializer.h
+Funcs.h
+/Data/Dropbox/Study/cs/3. CS MSU cs cources/3.1 Машграф/projects/mashgraph3/source/Funcs.h
+
+/Data/Dropbox/Study/cs/3. CS MSU cs cources/3.1 Машграф/projects/mashgraph3/source/mesh.h
+string
+-
+fstream
+-
+sstream
+-
+iostream
+-
+vector
+-
+GL/glew.h
+-
+Utility.h
+/Data/Dropbox/Study/cs/3. CS MSU cs cources/3.1 Машграф/projects/mashgraph3/source/Utility.h
+shader.h
+/Data/Dropbox/Study/cs/3. CS MSU cs cources/3.1 Машграф/projects/mashgraph3/source/shader.h
+
+/Data/Dropbox/Study/cs/3. CS MSU cs cources/3.1 Машграф/projects/mashgraph3/source/model.h
+string
+-
+fstream
+-
+sstream
+-
+iostream
+-
+map
+-
+vector
+-
+GL/glew.h
+-
+SOIL.h
+-
+assimp/Importer.hpp
+-
+assimp/scene.h
+-
+assimp/postprocess.h
+-
+mesh.h
+/Data/Dropbox/Study/cs/3. CS MSU cs cources/3.1 Машграф/projects/mashgraph3/source/mesh.h
+Funcs.h
+/Data/Dropbox/Study/cs/3. CS MSU cs cources/3.1 Машграф/projects/mashgraph3/source/Funcs.h
+
+/Data/Dropbox/Study/cs/3. CS MSU cs cources/3.1 Машграф/projects/mashgraph3/source/shader.h
+GL/glew.h
+-
+string
+-
+fstream
+-
+sstream
+-
+iostream
+-
 
 SOIL/src/SOIL.h
 

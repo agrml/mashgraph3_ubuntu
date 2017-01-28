@@ -6,7 +6,8 @@
 #include "Utility.h"
 #include "Graphics.h"
 #include "Globals.h"
-
+#include "Serializer.h"
+#include "Funcs.h"
 
 // Завершение программы
 void FinishProgram() {
@@ -34,6 +35,18 @@ void KeyboardEvents(unsigned char key, int x, int y) {
         }
     } else if (key == '+') {
         fWind += 0.3;
+    } else if (key == 'i') {
+        BinarySerializerWriter obj("state.bin");
+        serialize(obj);
+    } else if (key == 'o') {
+        BinarySerializerReader obj("state.bin");
+        serialize(obj);
+    } else if (key == 'k') {
+        TextSerializerWriter obj("state.txt");
+        serialize(obj);
+    } else if (key == 'l') {
+        TextSerializerReader obj("state.txt");
+        serialize(obj);
     }
 }
 

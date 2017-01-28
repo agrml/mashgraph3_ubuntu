@@ -1,7 +1,7 @@
 cmake_minimum_required(VERSION 2.8)
 project(cmake_project)
 
-set(CMAKE_CXX_FLAGS "${CMAKE_CXX_FLAGS} -std=c++11")
+set(CMAKE_CXX_FLAGS "${CMAKE_CXX_FLAGS} -std=c++11 -pg")
 
 include_directories(${CMAKE_CURRENT_SOURCE_DIR}/SOIL/src)
 include_directories(${CMAKE_CURRENT_SOURCE_DIR}/Utility/include)
@@ -45,6 +45,7 @@ add_executable(cmake_project
         ${CMAKE_CURRENT_SOURCE_DIR}/source/Funcs.cpp
         ${CMAKE_CURRENT_SOURCE_DIR}/source/Graphics.cpp
         ${CMAKE_CURRENT_SOURCE_DIR}/source/Globals.cpp
+        ${CMAKE_CURRENT_SOURCE_DIR}/source/Serializer.cpp
         )
 
 add_custom_target(make COMMAND $(MAKE) -C ${cmake_project_SOURCE_DIR}

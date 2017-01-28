@@ -10,6 +10,10 @@ file(REMOVE_RECURSE
   "CMakeFiles/cmake_project.dir/Utility/src/vec3.cpp.o"
   "CMakeFiles/cmake_project.dir/Utility/src/vec4.cpp.o"
   "CMakeFiles/cmake_project.dir/source/main.cpp.o"
+  "CMakeFiles/cmake_project.dir/source/Funcs.cpp.o"
+  "CMakeFiles/cmake_project.dir/source/Graphics.cpp.o"
+  "CMakeFiles/cmake_project.dir/source/Globals.cpp.o"
+  "CMakeFiles/cmake_project.dir/source/Serializer.cpp.o"
   "bin/cmake_project.pdb"
   "bin/cmake_project"
 )
