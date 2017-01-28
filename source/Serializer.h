@@ -23,6 +23,7 @@ public:
 
 class BinarySerializerWriter : public ISerializer {
     FILE *f;
+    std::string fname_;
 public:
     BinarySerializerWriter(const char *fname);
     ~BinarySerializerWriter();

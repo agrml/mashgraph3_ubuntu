@@ -4,6 +4,11 @@
 #include "Serializer.h"
 
 BinarySerializerReader::BinarySerializerReader(const char *fname) {
+    // unzip
+    auto s = std::string(fname);
+    s = std::string("unzip ") + s + ".zip";
+    system(s.c_str());
+
     f = fopen(fname, "r");
 }
 BinarySerializerReader::~BinarySerializerReader() {
@@ -27,10 +32,14 @@ void BinarySerializerReader::InOut(std::string &val) {
 }
 
 BinarySerializerWriter::BinarySerializerWriter(const char *fname) {
+    fname_ = std::string{fname};
     f = fopen(fname, "w");
 }
 BinarySerializerWriter::~BinarySerializerWriter() {
     fclose(f);
+    // zip
+    auto s = std::string("zip ") + fname_ + ".zip " + fname_;
+    system(s.c_str());
 }
 
 void BinarySerializerWriter::InOut(int &val) {
